@@ -2,7 +2,7 @@
 body {
 	margin: 0px;
 	padding: 0px;
-	background-color: rgba(0,0,0,.8);
+	background-color: rgba(230,230,230,1);  /* rgba(0,0,0,.8); */
 }
 
 #canvas-wrapper {
@@ -12,14 +12,14 @@ body {
 
 #canvas {
 	padding: 0px;
-	border-width: 5px;
-	border-color: black;
-	border-style: solid;
-	border-radius: 5px;
+	/* border-width: 5px; */
+	/* border-color: black; */
+	/* border-style: solid; */
+	/* border-radius: 5px; */
 
-	-webkit-box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75);
+	/* -webkit-box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75); */
+	/* -moz-box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75); */
+	/* box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.75); */
 }
 
 .wobble {	
