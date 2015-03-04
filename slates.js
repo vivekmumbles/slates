@@ -380,5 +380,5 @@ window.onload = function() {
     window.onresize = slates.resize.bind(slates);
     // slates.main();
     // window.requestAnimationFrame(slates.render.bind(slates));
-    window.setInterval(slates.main.bind(slates), 60);
+    window.setInterval(slates.main.bind(slates), 1);
 };
