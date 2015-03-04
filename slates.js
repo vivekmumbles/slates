@@ -24,13 +24,13 @@ function Slates() {
     var ctx;
     var width;
     var height;
-    var GRID_SIZE = 10;
+    var GRID_SIZE = 5;
     var grid = [];
     var LINE_WIDTH = 1;
     var LINE_COLOR = "rgba(25,25,25,1)";
     var finalStates = [[randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)]];
     var INITIAL_STATE = [];
-    var NUM_OF_SLATES = 100;
+    var NUM_OF_SLATES = 8;
     var slates = initSlates();
     var stacks = [];
     var hover = [-1,-1];
