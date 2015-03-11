@@ -25,7 +25,7 @@ function Slates() {
     var width;
     var height;
     var LINE_WIDTH = 5;
-    var GRID_SIZE = 10;
+    var GRID_SIZE = 5;
     var rect_size;
     var grid = [];
     var LINE_COLOR = "rgba(230,230,230,1)"; // "rgba(48,48,48,1)";
@@ -177,8 +177,8 @@ function Slates() {
 	// ctx.fillStyle = "rgba(0,119,204,.8)"; // blue
 	// ctx.fillStyle = "rgba(108,153,187,1)"; // blue
 	// 2372aa
-	var fontSize = (rect_size * .2) + "px";
-	ctx.font = fontSize + " monospace";
+	// var fontSize = (rect_size * .2) + "px";
+	// ctx.font = fontSize + " monospace";
 	for(var i = 0; i < GRID_SIZE; i++) {
 	    for(var j = 0; j < GRID_SIZE; j++) {
 		var s = rect_size;
@@ -221,14 +221,18 @@ function Slates() {
     }
 
     function renderNumbers() {
-	var fontSize = (rect_size * .2) + "px";
+	// var fontSize = (rect_size * .2) + "px";
+	var fontSize = (rect_size * .8) + "px";
 	ctx.font = fontSize + " monospace";
 	ctx.fillStyle = LINE_COLOR;
 	for(var i = 0; i < GRID_SIZE; i++) {
 	    for(var j = 0; j < GRID_SIZE; j++) {
 		var n = stacks[i][j];
 		if(n > 1) {
-		    ctx.fillText(n.toString(), i*rect_size+LINE_WIDTH*1.5, j*rect_size+rect_size-LINE_WIDTH*.75);
+		    // ctx.fillText(n.toString(), i*rect_size+LINE_WIDTH*1.5, j*rect_size+rect_size-LINE_WIDTH*.75);
+		    var w = ctx.measureText(n.toString()).width;
+		    ctx.fillText(n.toString(), i*rect_size+rect_size/2-w/2, 
+				 j*rect_size+rect_size/2+(rect_size*.8)/2);
 		}
 	    }
 	}
@@ -256,7 +260,7 @@ function Slates() {
 	if (hasMember(selection, hover)) {
 	    ctx.fillStyle = "rgba(18,58,86,1)";
 	    ctx.strokeStyle = "rgba(18, 58, 86,1)";
-	    var t = LINE_WIDTH/2;
+	    var t = LINE_WIDTH*2;
 	    fillRoundedRect(hover[0]*s+LINE_WIDTH+t,hover[1]*s+LINE_WIDTH+t, s-LINE_WIDTH-t*2, s-LINE_WIDTH-t*2,LINE_WIDTH/2);
 	} else {
 	    ctx.fillStyle = "rgba(0,0,0,.5)";
@@ -352,13 +356,13 @@ function Slates() {
 	    // ctx.strokeStyle = "black"
 
 
-	    var t = LINE_WIDTH/2;
+	    var t = LINE_WIDTH*2;
 
 	    fillRoundedRect(s[0]*x+LINE_WIDTH+t,s[1]*y+LINE_WIDTH+t, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,LINE_WIDTH/2);
 	    ctx.shadowBlur = LINE_WIDTH*4;
 	    fillRoundedRect(s[0]*x+LINE_WIDTH+t,s[1]*y+LINE_WIDTH+t, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,LINE_WIDTH/2);
-	    ctx.shadowBlur = LINE_WIDTH*8;
-	    fillRoundedRect(s[0]*x+LINE_WIDTH+t,s[1]*y+LINE_WIDTH+t, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,LINE_WIDTH/2);
+	    // ctx.shadowBlur = LINE_WIDTH*8;
+	    // fillRoundedRect(s[0]*x+LINE_WIDTH+t,s[1]*y+LINE_WIDTH+t, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,LINE_WIDTH/2);
 
 
 	    // ctx.strokeRect(s[0]*x+t,s[1]*y+t, x-t*2, y-t*2);
@@ -500,8 +504,9 @@ function Slates() {
 		var f1 = animateSlate(one,[x,y]);
 		stacks[two[0]][two[1]]--;
 		var f2 = animateSlate(two,[x,y]);
-		console.log(f1+f2);
+		// console.log(f1+f2);
 		if ((f1+f2) == 2) stacks[x][y]++;
+		// stacks[x][y]++;
 		selection = [];
 	    }
 	    else wobble();
@@ -553,11 +558,13 @@ function Slates() {
 	renderFinalState();
 	renderSelection()
 	renderHover();
+	window.requestAnimationFrame(render);
     };	
 
     Slates.prototype.main = function() {
 	update();
 	render();
+	// window.requestAnimationFrame(main);
     }
 }
 
@@ -569,6 +576,6 @@ window.onload = function() {
     slates.init();
     window.onresize = slates.resize.bind(slates);
     // slates.main();
-    // window.requestAnimationFrame(slates.main.bind(slates));
-    window.setInterval(slates.main.bind(slates), 60);
+    window.requestAnimationFrame(slates.main.bind(slates));
+   //  window.setInterval(slates.main.bind(slates), 1);
 };
