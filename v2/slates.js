@@ -31,7 +31,7 @@ function Slates() {
     var height;
     var LINE_WIDTH = 5;
     var BORDER_RADIUS = 5; // TODO: make a function of width
-    var GRID_SIZE = 10;
+    var GRID_SIZE = 4;
     var rect_size;
     var grid = [];
     var LINE_COLOR = "rgba(230,230,230,1)"; // "rgba(48,48,48,1)";
@@ -39,7 +39,7 @@ function Slates() {
     // var finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];
     var finalState = [2,2];
     var INITIAL_STATE = [];
-    var NUM_OF_SLATES = 100;
+    var NUM_OF_SLATES = 8;
     var slates = initSlates();
     var stacks = [];
     var hover = [-1,-1];
@@ -162,6 +162,7 @@ function Slates() {
 	    return maxDstStates;
 	}
 
+	
 	var r = Math.random();
 	
 	// if (r < 1/5) return states[randint(0,states.length)];
@@ -403,8 +404,8 @@ function Slates() {
 	    for(var j = 0; j < GRID_SIZE; j++) {
 		var n = stacks[i][j];
 		if(n > 1) {
-		    if (Math.floor(Math.log10(n)) == 0) ctx.font = (rect_size/2-LINE_WIDTH*1.5)*1.5 + "px monospace";
-		    else ctx.font = ((rect_size/2-LINE_WIDTH*1.5)*1.5)/Math.floor(Math.log10(n)) + "px monospace";
+		    if (Math.floor(Math.log10(n)) == 0) ctx.font = (rect_size/2.5)*1.5 + "px monospace";
+		    else ctx.font = ((rect_size/2.5)*1.5)/Math.floor(Math.log10(n)) + "px monospace";
 		    // ctx.font = ((rect_size/2-LINE_WIDTH*1.5)*1.5)/Math.floor(Math.log10(n)) + "px monospace";
 		    // ctx.font = "px monospace";
 		    // if (Math.floor(Math.log10(n)) == 0);
@@ -439,14 +440,16 @@ function Slates() {
 	// if (isValidMove(hover[0], hover[1])) ctx.fillStyle = "rgba(45, 21, 73,.6)";
 	// else ctx.fillStyle = "rgba(0,0,0,.5)";
 
+	ctx.fillStyle = "rgba(0,0,0,.5)";
+
 	
 	if (hasMember(selection, hover)) {
-	    ctx.fillStyle = "rgba(0,0,0,.5)";
+	    // ctx.fillStyle = "rgba(0,0,0,.5)";
 	    // ctx.fillStyle = "rgba(18,58,86,1)";
 	    var t = rect_size/30;
 	    fillRoundedRect(hover[0]*s+LINE_WIDTH+t+PAD,hover[1]*s+LINE_WIDTH+t+PAD, s-LINE_WIDTH-t*2, s-LINE_WIDTH-t*2,BORDER_RADIUS-t);
 	} else {
-	    ctx.fillStyle = "rgba(0,0,0,.5)";
+	    // ctx.fillStyle = "rgba(0,0,0,.5)";
 	    fillRoundedRect(hover[0]*s+LINE_WIDTH+PAD, hover[1]*s+LINE_WIDTH+PAD, s-LINE_WIDTH, s-LINE_WIDTH, BORDER_RADIUS);
 	    // ctx.fillRect(hover[0]*s+LINE_WIDTH*2, hover[1]*s+LINE_WIDTH*2, s-LINE_WIDTH*3, s-LINE_WIDTH*3);
 	}
@@ -475,7 +478,7 @@ function Slates() {
 	fillRoundedRect(i*s+LINE_WIDTH+PAD, j*s+LINE_WIDTH+PAD, s-LINE_WIDTH, s-LINE_WIDTH, BORDER_RADIUS);
 
 	ctx.beginPath();
-	ctx.arc(i*s+s/2+LINE_WIDTH/2+PAD, j*s+s/2+LINE_WIDTH/2+PAD, s/2-LINE_WIDTH*1.5, 0, 2 * Math.PI, false);
+	ctx.arc(i*s+s/2+LINE_WIDTH/2+PAD, j*s+s/2+LINE_WIDTH/2+PAD, s/2.5, 0, 2 * Math.PI, false);
 	ctx.fillStyle = 'firebrick';
 	ctx.fill();
 	ctx.closePath();
@@ -677,8 +680,11 @@ function Slates() {
 		// selection = [];
 		target = null;
 		animate = false;
-
-	
+		
+		if (checkWinner()) alert("You Won!");
+		else if (checkLoser()) alert("You Lost!");
+		
+		// console.log(slates);
 	    }
 	}
 	
@@ -738,6 +744,26 @@ function Slates() {
 	else console.log("something went wrong in click handler");
     }
 
+    function checkWinner() {
+	var num = 0;
+	for(var i = 0; i < GRID_SIZE; ++i) {
+	    for(var j = 0; j < GRID_SIZE; ++j) {
+		num += stacks[i][j];
+	    }
+	}
+	return (stacks[finalState[0]][finalState[1]] == 1 && num == 1); 
+    }
+
+    function checkLoser() {
+	var moves = 0;
+	for(var i = 0; i < GRID_SIZE; ++i) {
+	    for(var j = 0; j < GRID_SIZE; ++j) {
+		if (isValidMove(i,j)) moves++;
+	    }
+	}
+	return (moves == 0);
+    }
+
 
     Slates.prototype.init = function() {
 	canvas = document.getElementById("canvas");
@@ -774,7 +800,7 @@ function Slates() {
     };
 
     function update() {
-
+	
     };
 
     function render() {
