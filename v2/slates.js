@@ -20,22 +20,26 @@ function hasMember(xs, x) {
     } return false;
 }
 
+function distance(a, b) {
+	return Math.sqrt(Math.pow(b[0]-a[0],2)+Math.pow(b[1]-a[1],2))
+}
+
 function Slates() {
     var canvas;
     var ctx;
     var width;
     var height;
-    var LINE_WIDTH = 10;
-    var BORDER_RADIUS = 10; // TODO: make a function of width
-    var GRID_SIZE = 5;
+    var LINE_WIDTH = 5;
+    var BORDER_RADIUS = 5; // TODO: make a function of width
+    var GRID_SIZE = 10;
     var rect_size;
     var grid = [];
     var LINE_COLOR = "rgba(230,230,230,1)"; // "rgba(48,48,48,1)";
     var BG_COLOR = "rgba(200,200,200,1)";
-    var finalState = [randint(1, GRID_SIZE), randint(1, GRID_SIZE)];
-    // var finalStates = [[0,0]];
+    // var finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];
+    var finalState = [2,2];
     var INITIAL_STATE = [];
-    var NUM_OF_SLATES = 10;
+    var NUM_OF_SLATES = 100;
     var slates = initSlates();
     var stacks = [];
     var hover = [-1,-1];
@@ -108,9 +112,129 @@ function Slates() {
 	return helper;
     }
 
+    // greedy algorithm to minimize overlap
+    function dispersion(loc, states) {
+	// console.log("states: ", states);
+	function move(x,y,state) {
+	    // console.log("states: ", state);
+	    switch (state) {
+	    case 0: return [[x-1,y],[x+1,y]];
+	    case 1: return [[x,y-1],[x,y+1]];
+	    case 2: return [[x,y-1],[x+1,y]];
+	    case 3: return [[x+1,y],[x,y+1]];
+	    case 4: return [[x-1,y],[x,y+1]];
+	    case 5: return [[x-1,y],[x,y-1]];
+	    default:
+		console.log("error state: ", state);
+		console.error("No such possible state");
+		return new Error("No possible state!");
+	    }
+	}
+
+	var x = loc[0]; var y = loc[1];
+
+	function minStates(states) {
+	    var minStates = [[-1,Number.MAX_VALUE]];
+	    for(var i = 0; i < states.length; ++i) {
+		var m = move(x,y,states[i]);
+		var num = stacks[m[0][0]][m[0][1]]+stacks[m[1][0]][m[1][0]];
+		// console.log("m: ", m[0], ", ", m[1]);
+		// console.log("stacks: ", stacks);
+		// console.log("num: ", num);
+		if      (num == minStates[0][1]) minStates.push([states[i],num]);
+		else if (num < minStates[0][1]) minStates = [[states[i],num]];
+	    }
+	    return minStates;
+	}
+
+	function maxDstStates(states) {
+	    var maxDstStates = [[-1,Number.MIN_VALUE]];
+	    for(var i = 0; i < states.length; ++i) {
+		var m = move(x,y,states[i]);
+		var dst = (distance(m[0],finalState)+distance(m[1],finalState));
+		// var dst = (distance(m[0],finalState)+distance(m[1],finalState))/2;
+		// var dst = Math.min(distance(m[0],finalState), distance(m[1],finalState));
+		// var dst = Math.max(distance(m[0],finalState), distance(m[1],finalState));
+		//	    console.log("DST: ", dst)
+		if (dst == maxDstStates[0][1]) maxDstStates.push([states[i],dst]);
+		else if (dst > maxDstStates[0][1]) maxDstStates = [[states[i],dst]];
+	    }
+	    return maxDstStates;
+	}
+
+	var r = Math.random();
+	
+	// if (r < 1/5) return states[randint(0,states.length)];
+	if (r < 1/2) {
+	    var ms = minStates(states);
+	    return ms[randint(0,ms.length)][0];	
+	}
+	if (r < 1) {
+	    var md = maxDstStates(states);
+	    return md[randint(0,md.length)][0];
+	}
+	
+
+
+
+	// var r = Math.random();
+	// // var r = 1;
+	
+	// if (r < 1/5) return states[randint(0,states.length)];
+	// if (r < 2/5) {
+	//     var ms = minStates(states);
+	//     return ms[randint(0,ms.length)][0];	
+	// }
+	// if (r < 3/5) {
+	//     var md = maxDstStates(states);
+	//     return md[randint(0,md.length)][0];
+	// }
+	// if (r < 4/5) {
+	//     var md = maxDstStates(states).map(function(x){ return x[0];});
+	//     var ms = minStates(md);
+	//     return ms[randint(0,ms.length)][0];	
+	// }
+	// var ms = minStates(states).map(function(x){ return x[0];});
+	// // console.log(ms);
+	// var md = maxDstStates(ms);
+	// return md[randint(0,md.length)][0];
+
+
+
+
+	// var md = maxDstStates(states);
+	// return md[randint(0,md.length)][0];
+
+	// console.log("minStates: ", minStates);
+	// return minStates[randint(0,minStates.length)][0];
+
+	// console.log("maxDstStates: ", maxDstStates.toString());
+	// return maxDstStates[randint(0,maxDstStates.length)][0];
+	
+	// // corners
+	// if (x == 0 && y == 0) return [3];
+	// if ((x == edge) && (y == 0)) return [4];
+	// if ((x == edge) && (y == edge))  return [5];
+	// if ((x == 0) && (y == edge)) return [2];
+
+	
+	
+    }
+
+    function updateGrid(slates) {
+	for(var i = 0; i < slates.length; i++) {
+	    var x = slates[i][0];
+	    var y = slates[i][1];
+	    grid[x][y] = true;
+	    stacks[x][y]++;
+	}
+    }
+
     // var repeats = [];
     
     function backTrack(slates, acc) {
+	// console.log("slates: ", slates.toString());
+	updateGrid(slates);
     	if(slates.length <= 1) return acc.concat(slates);
 
     	var split = randint(1, slates.length);
@@ -121,9 +245,16 @@ function Slates() {
     	// var tries = 0;
     	// do {
 	    // console.log("fssfgsdgd");
-    	    var state = possibleStates[randint(0,possibleStates.length)];
-    	    var leftPeek = modifyLocation(state, "LEFT")(slates[0]);
-    	    var rightPeek = modifyLocation(state, "RIGHT")(slates[0]);
+
+    	// var state = possibleStates[randint(0,possibleStates.length)];
+    	    
+	var state = dispersion(slates[0],possibleStates);
+	// console.log("returned state: ", state);
+
+
+	// var leftPeek = modifyLocation(state, "LEFT")(slates[0]);
+    	// var rightPeek = modifyLocation(state, "RIGHT")(slates[0]);
+
 	    // if (tries > 6) break;
 	    // } while(hasMember(finalStates,leftPeek) || hasMember(finalStates,rightPeek) || hasMember(repeats,leftPeek) || hasMember(repeats, rightPeek));
 	    // } while(hasMember(finalStates,leftPeek) || hasMember(finalStates,rightPeek) || hasMember(acc,leftPeek) || hasMember(acc, rightPeek));
@@ -131,6 +262,9 @@ function Slates() {
 
 	var newLeft = left.map(modifyLocation(state, "LEFT"));
 	var newRight = right.map(modifyLocation(state, "RIGHT"));
+
+	
+	// console.log("acc: ", acc.toString());
 
 	return backTrack(newLeft, acc).concat(backTrack(newRight, acc));
     }
@@ -210,14 +344,6 @@ function Slates() {
 
     }
 
-    function updateGrid(slates) {
-	for(var i = 0; i < slates.length; i++) {
-	    var x = slates[i][0];
-	    var y = slates[i][1];
-	    grid[x][y] = true;
-	    stacks[x][y]++;
-	}
-    }
 
     function renderSlates() {
 	// ctx.fillStyle = "rgba(0,119,204,.8)"; // blue
@@ -277,7 +403,11 @@ function Slates() {
 	    for(var j = 0; j < GRID_SIZE; j++) {
 		var n = stacks[i][j];
 		if(n > 1) {
-		    ctx.font =  ((rect_size/2-LINE_WIDTH*1.5)*1.5)/Math.floor(Math.log10(n)) + "px monospace";
+		    if (Math.floor(Math.log10(n)) == 0) ctx.font = (rect_size/2-LINE_WIDTH*1.5)*1.5 + "px monospace";
+		    else ctx.font = ((rect_size/2-LINE_WIDTH*1.5)*1.5)/Math.floor(Math.log10(n)) + "px monospace";
+		    // ctx.font = ((rect_size/2-LINE_WIDTH*1.5)*1.5)/Math.floor(Math.log10(n)) + "px monospace";
+		    // ctx.font = "px monospace";
+		    // if (Math.floor(Math.log10(n)) == 0);
 		    // ctx.fillText(n.toString(), i*rect_size+LINE_WIDTH*1.5, j*rect_size+rect_size-LINE_WIDTH*.75);
 		    var w = ctx.measureText(n.toString()).width;
 		    ctx.fillText(n.toString(), i*rect_size+rect_size/2+LINE_WIDTH/2+PAD, 
@@ -371,9 +501,7 @@ function Slates() {
 
     var selection = [];
 
-    function distance(a, b) {
-	return Math.sqrt(Math.pow(b[0]-a[0],2)+Math.pow(b[1]-a[1],2))
-    }
+
 
     function validSelection(a, b) {
 	var d = distance(a, b);
@@ -620,6 +748,8 @@ function Slates() {
 	this.resize();
 	initGrid();
 	slates = backTrack(slates, []);
+	grid = []; stacks = [];
+	initGrid();
 	// repeats = [];
 	updateGrid(slates);
 	canvas.onmousemove = mouseMotionListener;
