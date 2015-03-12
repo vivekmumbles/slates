@@ -24,6 +24,8 @@ function distance(a, b) {
 	return Math.sqrt(Math.pow(b[0]-a[0],2)+Math.pow(b[1]-a[1],2))
 }
 
+// TODO: add breadcrumb final states, menu, swipe for touch
+
 function Slates() {
     var canvas;
     var ctx;
@@ -447,7 +449,7 @@ function Slates() {
 	    // ctx.fillStyle = "rgba(0,0,0,.5)";
 	    // ctx.fillStyle = "rgba(18,58,86,1)";
 	    var t = rect_size/30;
-	    fillRoundedRect(hover[0]*s+LINE_WIDTH+t+PAD,hover[1]*s+LINE_WIDTH+t+PAD, s-LINE_WIDTH-t*2, s-LINE_WIDTH-t*2,BORDER_RADIUS-t);
+	    fillRoundedRect(hover[0]*s+LINE_WIDTH+t+PAD,hover[1]*s+LINE_WIDTH+t+PAD, s-LINE_WIDTH-t*2, s-LINE_WIDTH-t*2,BORDER_RADIUS);
 	} else {
 	    // ctx.fillStyle = "rgba(0,0,0,.5)";
 	    fillRoundedRect(hover[0]*s+LINE_WIDTH+PAD, hover[1]*s+LINE_WIDTH+PAD, s-LINE_WIDTH, s-LINE_WIDTH, BORDER_RADIUS);
@@ -569,9 +571,9 @@ function Slates() {
 	    ctx.shadowBlur = rs/3;
 
 	    ctx.fillStyle = "rgba(35, 114, 170, 1)";
-	    fillRoundedRect(s[0]*x+LINE_WIDTH+t+PAD,s[1]*y+LINE_WIDTH+t+PAD, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,BORDER_RADIUS-t);
+	    fillRoundedRect(s[0]*x+LINE_WIDTH+t+PAD,s[1]*y+LINE_WIDTH+t+PAD, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,BORDER_RADIUS);
 	    // ctx.shadowBlur = 25;
-	    fillRoundedRect(s[0]*x+LINE_WIDTH+t+PAD,s[1]*y+LINE_WIDTH+t+PAD, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,BORDER_RADIUS-t);
+	    fillRoundedRect(s[0]*x+LINE_WIDTH+t+PAD,s[1]*y+LINE_WIDTH+t+PAD, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,BORDER_RADIUS);
 
 
 	    ctx.shadowColor = null;
@@ -580,7 +582,7 @@ function Slates() {
 	    ctx.shadowBlur = null;
 
 	    ctx.fillStyle = "rgba(0, 255, 0, .5)"
-	    fillRoundedRect(s[0]*x+LINE_WIDTH+t+PAD,s[1]*y+LINE_WIDTH+t+PAD, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,BORDER_RADIUS-t);
+	    fillRoundedRect(s[0]*x+LINE_WIDTH+t+PAD,s[1]*y+LINE_WIDTH+t+PAD, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,BORDER_RADIUS);
 
 	    // ctx.fillStyle = "rgba(35, 114, 170, .8)";
 	    // var t = 2;
