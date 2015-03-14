@@ -7,8 +7,9 @@ body {
 
 #canvas-wrapper {
 	padding: 0px;
-	text-align: center;
-	overflow: hidden;
+	margin: auto;
+	/* text-align: center; */
+	/* overflow: hidden; */
 }
 
 #canvas {

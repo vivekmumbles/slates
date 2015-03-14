@@ -1,6 +1,31 @@
 
 "use strict";
 
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time 
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
+
 
 function randint(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -33,15 +58,19 @@ function Slates() {
     var height;
     var LINE_WIDTH = 5;
     var BORDER_RADIUS = 5; // TODO: make a function of width
-    var GRID_SIZE = 4;
+    var GRID_SIZE = 5;
     var rect_size;
     var grid = [];
     var LINE_COLOR = "rgba(230,230,230,1)"; // "rgba(48,48,48,1)";
     var BG_COLOR = "rgba(200,200,200,1)";
+
+    var NUM_OF_SLATES = 5;
     // var finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];
+    var NUM_OF_CRUMBS = Math.max(Math.min(3,NUM_OF_SLATES-1),1); // including final state, min = 1, max = NUM_OF_SLATES - 1 
     var finalState = [2,2];
-    var INITIAL_STATE = [];
-    var NUM_OF_SLATES = 8;
+    var crumbs = [{loc: finalState, visited: false}];
+    // var INITIAL_STATE = [];
+   
     var slates = initSlates();
     var stacks = [];
     var hover = [-1,-1];
@@ -55,6 +84,10 @@ function Slates() {
     var targetRot = 2*Math.PI; // radians
 
     var PAD;
+
+    // var NUM_OF_CRUMBS = 1; // max numofslates - 2 (moves - finalstate)
+    // var crumbs = [];
+
 
     function initGrid() {
 	for(var i = 0; i < GRID_SIZE; i++) {
@@ -233,12 +266,17 @@ function Slates() {
 	}
     }
 
+    Slates.prototype.printvar = function() {
+	console.log(crumbs);
+    }
+
     // var repeats = [];
     
-    function backTrack(slates, acc) {
+    function backTrack(slates) {
+	// console.log(slates.length);
 	// console.log("slates: ", slates.toString());
 	updateGrid(slates);
-    	if(slates.length <= 1) return acc.concat(slates);
+    	if(slates.length <= 1) return slates; // return acc.concat(slates);
 
     	var split = randint(1, slates.length);
     	var left = slates.slice(0, split);
@@ -253,6 +291,16 @@ function Slates() {
     	    
 	var state = dispersion(slates[0],possibleStates);
 	// console.log("returned state: ", state);
+	
+	// console.count("here");
+	var r = Math.random();
+	if (r < (NUM_OF_CRUMBS/(NUM_OF_SLATES-1)) && crumbs.length < NUM_OF_CRUMBS && 
+	    slates.length < NUM_OF_SLATES && hasMember(crumbs,slates[0]) == false) {
+	    crumbs.push({loc: slates[0], visited: false});
+	    // console.log("here");
+	}
+
+	
 
 
 	// var leftPeek = modifyLocation(state, "LEFT")(slates[0]);
@@ -269,7 +317,7 @@ function Slates() {
 	
 	// console.log("acc: ", acc.toString());
 
-	return backTrack(newLeft, acc).concat(backTrack(newRight, acc));
+	return backTrack(newLeft).concat(backTrack(newRight));
     }
 
     // function drawRoundedRect(x,y,w,h,r) {
@@ -414,7 +462,7 @@ function Slates() {
 		    // ctx.fillText(n.toString(), i*rect_size+LINE_WIDTH*1.5, j*rect_size+rect_size-LINE_WIDTH*.75);
 		    var w = ctx.measureText(n.toString()).width;
 		    ctx.fillText(n.toString(), i*rect_size+rect_size/2+LINE_WIDTH/2+PAD, 
-				 j*rect_size+rect_size/2+LINE_WIDTH/1.75+PAD);
+				 j*rect_size+rect_size/2+LINE_WIDTH/2+PAD);
 		    // ctx.fillStyle = 'green';
 		    // ctx.fillRect(i*rect_size+rect_size/2+LINE_WIDTH/2, 
 		    // 		 j*rect_size+rect_size/2+LINE_WIDTH/2, 10, 10);
@@ -459,31 +507,66 @@ function Slates() {
 
     function renderFinalState() {
 
-	var i = finalState[0];
-	var j = finalState[1];
+	// var i = finalState[0];
+	// var j = finalState[1];
 
-	var s = rect_size;
+	// var s = rect_size;
 	
-	// ctx.strokeStyle = "rgba(170, 26, 40, 1)";
-	// ctx.fillStyle =  "rgba(170, 26, 40, 1)";
-	// fillRoundedRect(i*s+LINE_WIDTH/2, j*s+LINE_WIDTH/2, s, s, LINE_WIDTH);
-	// fillRoundedRect(i*s, j*s, s+LINE_WIDTH, s+LINE_WIDTH, LINE_WIDTH);
+	// // ctx.strokeStyle = "rgba(170, 26, 40, 1)";
+	// // ctx.fillStyle =  "rgba(170, 26, 40, 1)";
+	// // fillRoundedRect(i*s+LINE_WIDTH/2, j*s+LINE_WIDTH/2, s, s, LINE_WIDTH);
+	// // fillRoundedRect(i*s, j*s, s+LINE_WIDTH, s+LINE_WIDTH, LINE_WIDTH);
 
-	var h = stacks[i][j];
-	if (h > 0) {
-	    ctx.fillStyle = "rgba(35, 114, 170, 1)";
-	    ctx.strokeStyle = "rgba(35, 114, 170, 1)";
-	} else {
-	    ctx.fillStyle = BG_COLOR;
-	    ctx.strokeStyle = BG_COLOR;
+	// var h = stacks[i][j];
+	// if (h > 0) {
+	//     ctx.fillStyle = "rgba(35, 114, 170, 1)";
+	//     ctx.strokeStyle = "rgba(35, 114, 170, 1)";
+	// } else {
+	//     ctx.fillStyle = BG_COLOR;
+	//     ctx.strokeStyle = BG_COLOR;
+	// }
+	// fillRoundedRect(i*s+LINE_WIDTH+PAD, j*s+LINE_WIDTH+PAD, s-LINE_WIDTH, s-LINE_WIDTH, BORDER_RADIUS);
+
+	// ctx.beginPath();
+	// ctx.arc(i*s+s/2+LINE_WIDTH/2+PAD, j*s+s/2+LINE_WIDTH/2+PAD, s/2.5, 0, 2 * Math.PI, false);
+	// ctx.fillStyle = 'firebrick';
+	// ctx.fill();
+	// ctx.closePath();
+
+	// console.log(crumbs);
+
+	for(var k = 0; k < crumbs.length; ++k) {
+	    var i = crumbs[k].loc[0];
+	    // console.log("i = ", i);
+	    var j = crumbs[k].loc[1];
+	    // console.log("j = ", j);
+
+	    var s = rect_size;
+
+	    var h = stacks[i][j];
+	    if (h > 0) {
+		ctx.fillStyle = "rgba(35, 114, 170, 1)";
+		ctx.strokeStyle = "rgba(35, 114, 170, 1)";
+	    } else {
+		ctx.fillStyle = BG_COLOR;
+		ctx.strokeStyle = BG_COLOR;
+	    }
+	    fillRoundedRect(i*s+LINE_WIDTH+PAD, j*s+LINE_WIDTH+PAD, s-LINE_WIDTH, s-LINE_WIDTH, BORDER_RADIUS);
+
+	    ctx.beginPath();
+	    ctx.arc(i*s+s/2+LINE_WIDTH/2+PAD, j*s+s/2+LINE_WIDTH/2+PAD, s/2.5, 0, 2 * Math.PI, false);
+	    // if (k == 0) ctx.fillStyle = "yellow";
+	    if (crumbs[k].visited == false) {
+		ctx.fillStyle = 'firebrick';
+	    } else {
+		// ctx.fillStyle = 'rebeccapurple';
+		ctx.fillStyle = "rgba(0, 153, 51, 1)";
+		// ctx.fillStyle = "rgba(209, 62, 25, 1)";
+	    }
+	    
+	    ctx.fill();
+	    ctx.closePath();
 	}
-	fillRoundedRect(i*s+LINE_WIDTH+PAD, j*s+LINE_WIDTH+PAD, s-LINE_WIDTH, s-LINE_WIDTH, BORDER_RADIUS);
-
-	ctx.beginPath();
-	ctx.arc(i*s+s/2+LINE_WIDTH/2+PAD, j*s+s/2+LINE_WIDTH/2+PAD, s/2.5, 0, 2 * Math.PI, false);
-	ctx.fillStyle = 'firebrick';
-	ctx.fill();
-	ctx.closePath();
     }
 
     function mouseMotionListener(e) {
@@ -581,7 +664,7 @@ function Slates() {
 	    ctx.shadowOffsetX = null;
 	    ctx.shadowBlur = null;
 
-	    ctx.fillStyle = "rgba(0, 255, 0, .5)"
+	    // ctx.fillStyle = "rgba(0, 255, 0, .5)"
 	    fillRoundedRect(s[0]*x+LINE_WIDTH+t+PAD,s[1]*y+LINE_WIDTH+t+PAD, x-LINE_WIDTH-t*2, y-LINE_WIDTH-t*2,BORDER_RADIUS);
 
 	    // ctx.fillStyle = "rgba(35, 114, 170, .8)";
@@ -678,8 +761,23 @@ function Slates() {
 	    else {
 		// console.log(target);
 		// console.log(rs);
-		stacks[Math.floor(target.x/rs)][Math.floor(target.y/rs)]++;
+
+		// console.log("target: ", target);
+		// console.log("rs: ", rs);
+
+		// ctx.fillStyle = "yellow";
+		// ctx.fillRect(target.x, target.y, 10, 10);
+		
+		stacks[target.loc[0]][target.loc[1]]++;
 		// selection = [];
+		
+
+		crumbs.forEach(function(el) {
+		    if (el.loc.equals(target.loc)) {
+			el.visited = true;
+		    }
+		});
+
 		target = null;
 		animate = false;
 		
@@ -736,7 +834,7 @@ function Slates() {
 		var rs = rect_size;
 		aPos = {x:one[0]*rs+LINE_WIDTH+t+PAD,y:one[1]*rs+LINE_WIDTH+t+PAD};
 		bPos = {x:two[0]*rs+LINE_WIDTH+t+PAD,y:two[1]*rs+LINE_WIDTH+t+PAD};
-		target = {x:x*rs+LINE_WIDTH+t+PAD, y:y*rs+LINE_WIDTH+t+PAD};
+		target = {x:x*rs+LINE_WIDTH+t+PAD, y:y*rs+LINE_WIDTH+t+PAD, loc: [x,y]};
 		animate = true;
 		// stacks[x][y]++;
 		selection = [];
@@ -753,7 +851,33 @@ function Slates() {
 		num += stacks[i][j];
 	    }
 	}
-	return (stacks[finalState[0]][finalState[1]] == 1 && num == 1); 
+	
+	// console.log(crumbs);
+	
+	// var v = crumbs.reduce(function(x,y){ 
+	//     console.log("x: ", x);
+	//     console.log("y: ", y);
+	//     return (x.visited && y.visited); });
+
+	var v = true;
+
+	var c = 0;
+	for(var i = 0; i < crumbs.length; ++i) {
+	    // if (v == 0) return false;
+	    var cl = crumbs[i].loc;
+	    c += stacks[cl[0]][cl[1]];
+	    // console.log(crumbs[i]);
+	    // console.log(v);
+	    v = (v && crumbs[i].visited);
+	}
+
+	// console.log(crumbs);
+
+	// console.log("num = "+num+", v = "+v+", c = "+c);
+	
+	return (num == 1 && v == true && c == 1);
+	
+	// return (stacks[finalState[0]][finalState[1]] == 1 && num == 1); 
     }
 
     function checkLoser() {
@@ -775,7 +899,7 @@ function Slates() {
 	ctx = canvas.getContext("2d");
 	this.resize();
 	initGrid();
-	slates = backTrack(slates, []);
+	slates = backTrack(slates);
 	grid = []; stacks = [];
 	initGrid();
 	// repeats = [];
@@ -788,15 +912,16 @@ function Slates() {
     Slates.prototype.resize = function() {
 	var scale = 1;
 	var br = .8
-	var size = Math.min(window.innerWidth*scale, window.innerHeight*scale);
+	var size = Math.min(window.innerWidth*scale, window.innerHeight*scale)-20;
 	width = Math.round(size);
 	height = Math.round(size);
 	canvas.width = width;
 	canvas.height = height;
-	var margin = Math.round((window.innerHeight-height)/2);
-	canvas.style.marginTop = margin+"px";
-	canvas.style.marginBottom = margin+"px";
-	canvas.parentElement.style.height = window.innerHeight+"px";
+	// var margin = Math.round((window.innerHeight-height)/2);
+	// canvas.style.marginTop = margin+"px";
+	// canvas.style.marginBottom = margin+"px";
+	canvas.parentElement.style.height = size+"px";
+	canvas.parentElement.style.width = size+"px";
 	rect_size = Math.round((width*br - LINE_WIDTH)/GRID_SIZE);
 	PAD = (width-width*br)/2
     };
