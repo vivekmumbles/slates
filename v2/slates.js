@@ -8,7 +8,6 @@
                                                                          
 \*================================================================================================*/
 
-
 "use strict";
 
 //== utility functions ===========================================================================\\
@@ -55,8 +54,6 @@ Array.prototype.hasMember = function(x) {
 	else if (this[i] === x) return true;
     } return false;
 }
-
-
 
 // TODO: menu, swipe for touch
 
@@ -380,7 +377,6 @@ function Slates() {
 	} return (moves == 0);
     }
 
-
     //== draw graphics ===========================================================================\\
 
     function iterGrid(lambda) {
@@ -458,7 +454,6 @@ function Slates() {
 	    ctx.closePath();
 	}
     }
-
 
     function renderSelection() {
 
@@ -616,7 +611,6 @@ function Slates() {
     function mouseExitListener(e) {
 	hover = [-1,-1];
     }
-    
 
     function mouseClickListener(e) {
 	if (hover[0] == -1 && hover[1] == -1) return;
@@ -661,6 +655,8 @@ function Slates() {
 	else console.log("something went wrong in click handler");
     }
 
+    //== render loop =============================================================================\\
+
     function render() {
 	ctx.fillStyle = BG_COLOR;
 	ctx.fillRect(0, 0, width, height);
@@ -674,6 +670,8 @@ function Slates() {
 
 	window.requestAnimationFrame(render);
     };
+
+    //== publicly visible ========================================================================\\
 
     Slates.prototype.resize = function() {
 	var scale = 1;
@@ -695,7 +693,6 @@ function Slates() {
 	setDerivedProperties();
     };
 
-
     Slates.prototype.init = function() {
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
@@ -715,6 +712,8 @@ function Slates() {
 	render();
     }
 }
+
+//== onload ======================================================================================\\
 
 window.onload = function() {
     var slates = new Slates();
