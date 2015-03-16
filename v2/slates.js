@@ -113,8 +113,7 @@ function Slates() {
         
     // global vars
 
-    // var finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];    
-    var finalState = [2,2];
+    var finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];    
     var crumbs = [{loc: finalState, visited: false}];
        
     var grid = initGrid();
