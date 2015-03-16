@@ -111,20 +111,19 @@ function Slates() {
     // global vars
 
     var finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];    
-    var crumbs = [{loc: finalState, visited: false}];
-       
-    var grid = initGrid();
-    var slates = initSlates();
-    var hover = [-1,-1];
-    var selection = [];
+    var crumbs     = [{loc: finalState, visited: false}];
+    var grid       = initGrid();
+    var slates     = initSlates();
+    var hover      = [-1,-1];
+    var selection  = [];
 
     // animation global vars
     var aPos = null;
     var bPos = null;
 
-    var animate = false;
-    var target = null;
-    var rot = 0;
+    var animate    = false;
+    var target     = null;
+    var rot        = 0;
     var TARGET_ROT = 2*Math.PI; // radians
 
     //== init code ===============================================================================\\
