@@ -21,37 +21,31 @@ function distance(a, b) {
 	return Math.sqrt(Math.pow(b[0]-a[0],2)+Math.pow(b[1]-a[1],2));
 }
 
-// attach the .equals method to Array's prototype to call it on any array
-Array.prototype.equals = function(array) {
-    // if the other array is a falsy value, return
-    if (!array)
-        return false;
+// order matters
+Object.prototype.equals = function(x) {
+    return (JSON.stringify(this) === JSON.stringify(x));
+}
 
-    // compare lengths - can save a lot of time 
-    if (this.length != array.length)
-        return false;
+Array.prototype.equals = function(array) {
+
+    if (!array) return false;
+
+    if (this.length != array.length) return false;
 
     for (var i = 0; i < this.length; i++) {
-        // Check if we have nested arrays
         if (this[i] instanceof Array && array[i] instanceof Array) {
-            // recurse into the nested arrays
-            if (!this[i].equals(array[i])) return false;       
-        }           
-        else if (this[i] != array[i]) { 
-            // Warning - two different object instances will never be equal: {x:20} != {x:20}
-            return false;   
-        }           
-    }       
-    return true;
+            if (!this[i].equals(array[i])) return false;
+        } else if (this[i] != array[i]) return false;
+    } return true;
 }
 
 Array.prototype.hasMember = function(x) {
     if (this.length === 0) return false;
     for(var i = 0; i < this.length; i++) {
-	if (this[i] instanceof Array && x instanceof Array) {
-	    if(this[i].equals(x)) return true;
-	}
-	else if (this[i] === x) return true;
+	if ((this[i] instanceof Array && x instanceof Array) ||
+	    (this[i] instanceof Object && x instanceof Object)) {
+	    if (this[i].equals(x)) return true;
+	} else if (this[i] === x) return true;
     } return false;
 }
 
@@ -67,9 +61,11 @@ function Slates() {
 
     // config params
 
-    var GRID_SIZE     = 5;
-    var NUM_OF_SLATES = 5;
-    var NUM_OF_CRUMBS = (function(x) { return Math.max(Math.min(x,NUM_OF_SLATES-1),1); })(2);
+    // good config : 4, 8, 3
+
+    var GRID_SIZE     = 4;
+    var NUM_OF_SLATES = 8;
+    var NUM_OF_CRUMBS = (function(x) { return Math.max(Math.min(x,NUM_OF_SLATES-1),1); })(3);
 
     // aesthetics
 
@@ -297,7 +293,7 @@ function Slates() {
 	// crumbs
 	var r = Math.random();
 	if (r < (NUM_OF_CRUMBS/(NUM_OF_SLATES-1)) && crumbs.length < NUM_OF_CRUMBS && 
-	    slates.length < NUM_OF_SLATES && crumbs.hasMember(slates[0]) == false) {
+	    slates.length < NUM_OF_SLATES && crumbs.hasMember({loc: slates[0], visited: false}) == false) {
 	    crumbs.push({loc: slates[0], visited: false});
 	}
 
@@ -365,19 +361,13 @@ function Slates() {
 	    if (c > 1 || v == 0) return false;
 	}
 	
-	// TODO: might have to change this
 	var num = 0;
-	// for(var i = 0; i < GRID_SIZE; i++) {
-	//     for(var j = 0; j < GRID_SIZE; j++) {
-	// 	num += grid[i][j];
-	// 	if (num > 1) return false;
-	//     }
-	// }
-    
-	iterGrid(function(i,j) {
-	    num += grid[i][j];
-	    if (num > 1) return false
-	});
+	for(var i = 0; i < GRID_SIZE; i++) {
+	    for(var j = 0; j < GRID_SIZE; j++) {
+		num += grid[i][j];
+		if (num > 1) return false;
+	    }
+	}
 
 	return true;
     }
