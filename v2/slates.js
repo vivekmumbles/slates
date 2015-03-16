@@ -55,7 +55,7 @@ Array.prototype.hasMember = function(x) {
     } return false;
 }
 
-// TODO: menu, swipe for touch
+// TODO: menu, undo, swipe for touch
 
 function Slates() {
 
@@ -68,7 +68,7 @@ function Slates() {
     // config params
 
     var GRID_SIZE     = 5;
-    var NUM_OF_SLATES = 20;
+    var NUM_OF_SLATES = 5;
     var NUM_OF_CRUMBS = (function(x) { return Math.max(Math.min(x,NUM_OF_SLATES-1),1); })(2);
 
     // aesthetics
@@ -309,6 +309,15 @@ function Slates() {
 
     //== slates util =============================================================================\\
 
+    
+    function iterGrid(lambda) {
+	for(var i = 0; i < GRID_SIZE; i++) {
+	    for(var j = 0; j < GRID_SIZE; j++) {
+		lambda(i,j);
+	    }
+	}
+    }
+    
     function isValidMove(x, y) {
 	var adj = 0;
 	var edge = GRID_SIZE-1;
@@ -356,35 +365,33 @@ function Slates() {
 	    if (c > 1 || v == 0) return false;
 	}
 	
-	var num = 0; 
-	for(var i = 0; i < GRID_SIZE; ++i) {
-	    for(var j = 0; j < GRID_SIZE; ++j) {
-		num += grid[i][j];
-		if (num > 1) return false
-	    }
-	}
-	
+	// TODO: might have to change this
+	var num = 0;
+	// for(var i = 0; i < GRID_SIZE; i++) {
+	//     for(var j = 0; j < GRID_SIZE; j++) {
+	// 	num += grid[i][j];
+	// 	if (num > 1) return false;
+	//     }
+	// }
+    
+	iterGrid(function(i,j) {
+	    num += grid[i][j];
+	    if (num > 1) return false
+	});
+
 	return true;
     }
 
     function checkLoser() {
 	var moves = 0;
-	for(var i = 0; i < GRID_SIZE; ++i) {
-	    for(var j = 0; j < GRID_SIZE; ++j) {
-		if (isValidMove(i,j)) moves++;
-	    }
-	} return (moves == 0);
+	iterGrid(function(i,j) {
+	   if (isValidMove(i,j)) moves++; 
+	});
+	
+	return (moves == 0);
     }
 
     //== draw graphics ===========================================================================\\
-
-    function iterGrid(lambda) {
-	for(var i = 0; i < GRID_SIZE; i++) {
-	    for(var j = 0; j < GRID_SIZE; j++) {
-		lambda(i,j);
-	    }
-	}
-    }
 
     function renderSlates() {
 	iterGrid(function(i,j) {
@@ -398,12 +405,16 @@ function Slates() {
 
     function renderNumbers() {
 	ctx.fillStyle = FONT_COLOR;
+	var digits = 1;
+	iterGrid(function(i,j) {
+	    var n = grid[i][j];
+	    var d = Math.ceil(Math.log10(n));
+	    if (d > digits) digits = d;
+	});
 	iterGrid(function(i,j) {
 	    var n = grid[i][j];
 	    if(n > 1) {
-		var digits = Math.floor(Math.log10(n));
-		if (digits == 0) ctx.font = FONT_SIZE          + "px monospace";
-		else             ctx.font = (FONT_SIZE/digits) + "px monospace";
+		ctx.font = (FONT_SIZE/digits) + "px monospace";
 		var x = (i*DIV_SIZE)+FONT_OFFSET;
 		var y = (j*DIV_SIZE)+FONT_OFFSET;
 		ctx.fillText(n.toString(), x, y);
