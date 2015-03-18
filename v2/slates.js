@@ -49,7 +49,7 @@ Array.prototype.hasMember = function(x) {
     } return false;
 }
 
-// TODO: menu, undo, swipe for touch
+// TODO: menu, undo, swipe for touch, add option for hearistic, allow for list of animations
 
 function Slates() {
 
