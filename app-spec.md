@@ -12,7 +12,7 @@ There are unlimited games, various difficulties, and options to create custom us
 # Icon Sketch
 
 ![slates icon]
-(link)
+(http://vivekmumbles.github.io/slates/slates-icon.png)
 
 # Initial Features
 
