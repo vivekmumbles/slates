@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Slates</title>
-	<link rel="stylesheet" type="text/css" href="slates.css">
-	<script type="text/javascript" src="slates.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" type="text/css" href="css/slates.css">
+	<script type="text/javascript" src="js/slates.js"></script>
 </head>
 <body>
 	<div id="canvas-wrapper" class="">
@@ -12,23 +14,33 @@
 	</div>
 	
 	<div id="menu-wrapper">
-	    <button id="trigger-overlay" type="button">Menu</button>
+		<!-- <button id="trigger-overlay" class="btn" type="button">Menu</button> -->
+		<div id="trigger-overlay" class="button-xlarge pure-button pure-button-primary">
+		<i class="fa fa-bars"></i>
+		Menu
+		</div>
 	</div>
 	
 	<div class="overlay overlay-scale">
-	    <button type="button" class="overlay-close">Close</button>
-	    <nav>
-		<ul>
-		    <li><a href="#">Home</a></li>
-		    <li><a href="#">About</a></li>
-		    <li><a href="#">Work</a></li>
-		    <li><a href="#">Clients</a></li>
-		    <li><a href="#">Contact</a></li>
-		</ul>
-	    </nav>
+	<!-- 	<div id="trigger-overlay" class="overlay-close button-xlarge pure-button pure-button-primary">
+		<i class="fa fa-times"></i>
+		Close
+		</div> -->
+		<button type="button" class="overlay-close">Close</button>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Work</a></li>
+				<li><a href="#">Clients</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
 	</div>
-	<script type="text/javascript" src="modernizr.custom.js"></script>
-	<script type="text/javascript" src="classie.js"></script>
-	<script type="text/javascript" src="menu.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/menu.css">	
+	<script type="text/javascript" src="js/modernizr.custom.js"></script>
+	<script type="text/javascript" src="js/classie.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
 </body>
 </html>

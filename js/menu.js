@@ -29,9 +29,13 @@
 			else {
 				onEndTransitionFn();
 			}
+
+			triggerBttn.style.visibility = 'visible';
 		}
 		else if( !classie.has( overlay, 'close' ) ) {
 			classie.add( overlay, 'open' );
+
+			triggerBttn.style.visibility = 'hidden';
 		}
 	}
 
