@@ -767,7 +767,6 @@ function mouseClickListener(e) {
 window.onload = function() {
 	var slates = new Slates();
 	slates.init();
-	document.addEventListener("touchmove", )
 	window.onresize = slates.resize.bind(slates);
 	window.requestAnimationFrame(slates.main.bind(slates));
 };
