@@ -2,7 +2,7 @@
 body {
 	margin: 0px;
 	padding: 0px;
-	background-color: rgba(252, 252, 252, 1); /*rgba(230,230,230,1);*/  /* rgba(0,0,0,.8); */
+	background-color: yellow; /*rgba(252, 252, 252, 1);*/
 	overflow: hidden;
 }
 
