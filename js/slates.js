@@ -133,6 +133,9 @@ function Slates() {
 
     	canvas.style.marginTop  = -LINE_WIDTH/2 + "px";
     	canvas.style.marginLeft = -LINE_WIDTH/2 + "px";
+
+    	var content = document.getElementById("content");
+    	// content.style.width
     }
 
     // last function call in resize
@@ -690,7 +693,7 @@ function mouseClickListener(e) {
         canvas.width  = size;
         canvas.height = size;
 
-        content.style.width  = size + "px";
+        content.style.width  = size-50 + "px";
         content.style.height = wh   + "px";
 
         canvas.parentElement.style.height = size + "px";
