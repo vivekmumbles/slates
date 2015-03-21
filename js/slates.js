@@ -666,7 +666,7 @@ function mouseClickListener(e) {
     	renderNumbers();
     	renderSelection();
     	animateSlates();
-    	renderHover();
+    	// renderHover();
 
     	window.requestAnimationFrame(render);
     };
