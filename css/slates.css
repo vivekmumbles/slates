@@ -2,14 +2,17 @@
 body {
 	margin: 0px;
 	padding: 0px;
-	background-color: yellow; /*rgba(252, 252, 252, 1);*/
+	background-color: rgba(252, 252, 252, 1);
+	/*background-color: yellow;*/
 	overflow: hidden;
+	/*width: 500px;*/
 }
 
 #content {
 	padding: 0px;
 	margin: auto;
-	background-color: green;
+	/*background-color: green;*/
+	overflow: hidden;
 }
 
 #title {
@@ -38,6 +41,7 @@ body {
 #canvas-wrapper {
 	padding: 0px;
 	margin: auto;
+	overflow: hidden;
 }
 
 #canvas {

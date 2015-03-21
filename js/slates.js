@@ -135,7 +135,7 @@ function Slates() {
     	canvas.style.marginLeft = -LINE_WIDTH + "px";
 
     	var content = document.getElementById("content");
-    	content.style.width = canvas.width-LINE_WIDTH + "px";
+    	content.style.width = width-LINE_WIDTH + "px";
     }
 
     // last function call in resize
@@ -739,8 +739,6 @@ function mouseClickListener(e) {
         }
 
         setDerivedProperties();
-
-        alert(content.style.width);
     };
 
     Slates.prototype.init = function() {
@@ -769,6 +767,7 @@ function mouseClickListener(e) {
 window.onload = function() {
 	var slates = new Slates();
 	slates.init();
+	document.addEventListener("touchmove", )
 	window.onresize = slates.resize.bind(slates);
 	window.requestAnimationFrame(slates.main.bind(slates));
 };
