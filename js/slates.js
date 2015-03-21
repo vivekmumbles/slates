@@ -678,56 +678,84 @@ function mouseClickListener(e) {
     	var ww = window.innerWidth;
     	var wh = window.innerHeight;
 
-		var content = document.getElementById("content");
-		var menu    = document.getElementById("menu-wrapper");
-		var title   = document.getElementById("title");
-		var overlay = document.getElementById("overlay");
+    	var content = document.getElementById("content");
+    	var menu    = document.getElementById("menu-wrapper");
+    	var title   = document.getElementById("title");
+    	var overlay = document.getElementById("overlay");
 
-		var size = (wh < ww) ? Math.round(wh*.8) : ww;
+    	var size = (wh < ww) ? Math.round(wh*.8) : ww;
 
-		width = size;
-    	height = size;
-    	canvas.width  = size;
-    	canvas.height = size;
+        width = size;
+        height = size;
+        canvas.width  = size;
+        canvas.height = size;
 
-		content.style.width  = size + "px";
-		content.style.height = wh   + "px";
+        content.style.width  = size + "px";
+        content.style.height = wh   + "px";
 
-		canvas.parentElement.style.height = size + "px";
-		canvas.parentElement.style.width  = size + "px";
-		
-		var menuHeight = Math.round(wh-size);
+        canvas.parentElement.style.height = size + "px";
+        canvas.parentElement.style.width  = size + "px";
 
-		if (menuHeight/window.innerHeight > .4) menuHeight -= 20;
-		
-		menu.style.height = menuHeight + "px";
+        var menuHeight = Math.round(wh-size);
 
-		title.style.fontSize = width/7 + "px";
+        if (menuHeight/window.innerHeight > .4) menuHeight -= 20;
 
-		overlay.style.width = size + "px";
-		overlay.style.marginLeft = (ww-size)/2 + "px";
+        menu.style.height = menuHeight + "px";
 
-		setDerivedProperties();
-	};
+        title.style.fontSize = width/7 + "px";
 
-	Slates.prototype.init = function() {
-		canvas = document.getElementById("canvas");
-		ctx = canvas.getContext("2d");
+        overlay.style.width = size + "px";
+        overlay.style.marginLeft = (ww-size)/2 + "px";
 
-		this.resize();
+        // finally query the various pixel ratios
+		var devicePixelRatio  = window.devicePixelRatio || 1;
+		var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
+								ctx.mozBackingStorePixelRatio ||
+								ctx.msBackingStorePixelRatio ||
+								ctx.oBackingStorePixelRatio ||
+								ctx.backingStorePixelRatio || 1;
 
-		slates = backTrack(slates);
-		grid = initGrid();
-		updateGrid(slates);
+		var ratio = devicePixelRatio / backingStoreRatio;
 
-		canvas.onmousemove  = mouseMotionListener;
-		canvas.onmouseleave = mouseExitListener;
-		canvas.onclick      = mouseClickListener;
-	};	
+    	// upscale the canvas if the two ratios don't match
+    	if (devicePixelRatio !== backingStoreRatio) {
 
-	Slates.prototype.main = function() {
-		render();
-	}
+    		var oldWidth = canvas.width;
+    		var oldHeight = canvas.height;
+
+    		canvas.width = oldWidth * ratio;
+    		canvas.height = oldHeight * ratio;
+
+    		canvas.style.width = oldWidth + 'px';
+    		canvas.style.height = oldHeight + 'px';
+
+        	// now scale the ctx to counter
+        	// the fact that we've manually scaled
+        	// our canvas element
+        	ctx.scale(ratio, ratio);
+        }
+
+        setDerivedProperties();
+    };
+
+    Slates.prototype.init = function() {
+    	canvas = document.getElementById("canvas");
+    	ctx = canvas.getContext("2d");
+
+    	this.resize();
+
+    	slates = backTrack(slates);
+    	grid = initGrid();
+    	updateGrid(slates);
+
+    	canvas.onmousemove  = mouseMotionListener;
+    	canvas.onmouseleave = mouseExitListener;
+    	canvas.onclick      = mouseClickListener;
+    };	
+
+    Slates.prototype.main = function() {
+    	render();
+    }
 }
 
 //== onload ======================================================================================\\

@@ -2,4 +2,7 @@
 7x7 aesthetic
 outline final state
 
-turn off landscape mode in phonegap/cordova
+TODO: 
+
+- turn off landscape mode in phonegap/cordova
+- change window.innerWidth and window.innerHeight to screen.width and screen.height
