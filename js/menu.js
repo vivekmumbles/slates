@@ -1,5 +1,5 @@
 (function() {
-	var triggerBttn = document.getElementById( 'trigger-overlay' ),
+	var triggerBttn = document.getElementById('menu-btn'),
 		overlay = document.querySelector( 'div.overlay' ),
 		closeBttn = document.getElementById('overlay-close');
 		// closeBttn = overlay.querySelector( 'button.overlay-close' );

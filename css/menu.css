@@ -6,7 +6,7 @@
 	top: 0;
 	left: 0;
 	/*background: rgba(153,204,51,0.9);*/
-	background: rgba(0,0,0,.8);
+	background: rgba(252,252,252,.8);
 }
 
 /* Overlay closing cross */
@@ -15,8 +15,8 @@
 	height: 80px;
 	*/
 	position: absolute;
-	right: 20px;
-	top: 20px;
+	right: 7%;
+	top: 5%;
 	overflow: hidden;
 	border: none;
 	/*background: url(../img/cross.png) no-repeat center center;*/
@@ -58,14 +58,14 @@
 	font-size: 54px;
 	font-weight: 300;
 	display: block;
-	color: #fff;
+	color: rgba(125, 125, 125, 1);
 	-webkit-transition: color 0.2s;
 	transition: color 0.2s;
 }
 
 .overlay ul li a:hover,
 .overlay ul li a:focus {
-	color: #f0f0f0;
+	color: rgba(0, 0, 0, .7);
 }
 
 /* Effects */
@@ -95,10 +95,4 @@
 	.overlay ul li {
 		min-height: 34px;
 	}
-}
-
-#menu-wrapper {
-    position: absolute;
-    top: 20px;
-    right: 50px;
 }

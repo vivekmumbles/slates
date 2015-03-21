@@ -10,33 +10,37 @@
 	<script type="text/javascript" src="js/slates.js"></script>
 </head>
 <body>
-	<div id="canvas-wrapper" class="">
-		<canvas id="canvas"></canvas>
-	</div>
-	
-	<div id="menu-wrapper">
-		<!-- <button id="trigger-overlay" class="btn" type="button">Menu</button> -->
-		<div id="trigger-overlay" class="button-xlarge pure-button pure-button-primary">
-		<i class="fa fa-bars"></i>
-		Menu
+	<div id="content">
+		<div id="menu-wrapper">
+
+			<h1 id="title">slates</h1>
+
+			<!-- <button id="trigger-overlay" class="btn" type="button">Menu</button> -->
+			<div id="menu-btn" class="button-xlarge pure-button pure-button-primary">
+				<i class="fa fa-bars"></i>
+				Menu
+			</div>
 		</div>
-	</div>
-	
-	<div class="overlay overlay-scale">
-		<div id="overlay-close" class="overlay-close button-xlarge pure-button pure-button-primary">
-		<i class="fa fa-times"></i>
-		Close
+
+		<div id="canvas-wrapper" class="">
+			<canvas id="canvas"></canvas>
 		</div>
-		<!-- <button type="button" class="overlay-close">Close</button> -->
-		<nav>
-			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Work</a></li>
-				<li><a href="#">Clients</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-		</nav>
+
+		<div id="overlay" class="overlay overlay-scale">
+			<div id="overlay-close" class="overlay-close button-xlarge pure-button">
+				<i class="fa fa-times"></i>
+			</div>
+			<!-- <button type="button" class="overlay-close">Close</button> -->
+			<nav>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Work</a></li>
+					<li><a href="#">Clients</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 
 	<link rel="stylesheet" type="text/css" href="css/menu.css">	

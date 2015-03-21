@@ -1,3 +1,5 @@
 
 7x7 aesthetic
 outline final state
+
+turn off landscape mode in phonegap/cordova
