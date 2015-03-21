@@ -1,17 +1,16 @@
 (function() {
-	var triggerBttn = document.getElementById('menu-btn'),
-		overlay = document.querySelector( 'div.overlay' ),
-		closeBttn = document.getElementById('overlay-close');
-		// closeBttn = overlay.querySelector( 'button.overlay-close' );
-		transEndEventNames = {
+	var triggerBttn = document.getElementById('menu-btn');
+	var	overlay = document.querySelector( 'div.overlay' );
+	var	closeBttn = document.getElementById('overlay-close');
+	var	transEndEventNames = {
 			'WebkitTransition': 'webkitTransitionEnd',
 			'MozTransition': 'transitionend',
 			'OTransition': 'oTransitionEnd',
 			'msTransition': 'MSTransitionEnd',
 			'transition': 'transitionend'
-		},
-		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-		support = { transitions : Modernizr.csstransitions };
+		};
+	var	transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
+	var	support = { transitions : Modernizr.csstransitions };
 
 	function toggleOverlay() {
 		if( classie.has( overlay, 'open' ) ) {
@@ -40,6 +39,7 @@
 		}
 	}
 
-	triggerBttn.addEventListener( 'click', toggleOverlay );
+	// triggerBttn.addEventListener( 'click', toggleOverlay );
+	triggerBttn.onclick = toggleOverlay;
 	closeBttn.addEventListener( 'click', toggleOverlay );
 })();
