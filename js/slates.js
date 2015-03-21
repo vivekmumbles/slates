@@ -736,11 +736,14 @@ function mouseClickListener(e) {
         }
 
         setDerivedProperties();
+
+        alert(content.style.width);
     };
 
     Slates.prototype.init = function() {
     	canvas = document.getElementById("canvas");
     	ctx = canvas.getContext("2d");
+
 
     	this.resize();
 
