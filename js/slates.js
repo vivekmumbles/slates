@@ -131,11 +131,11 @@ function Slates() {
     	ctx.shadowOffsetY = 0;
     	ctx.shadowOffsetX = 0;
 
-    	// canvas.style.marginTop  = -LINE_WIDTH/2 + "px";
-    	// canvas.style.marginLeft = -LINE_WIDTH/2 + "px";
+    	canvas.style.marginTop  = -LINE_WIDTH + "px";
+    	canvas.style.marginLeft = -LINE_WIDTH + "px";
 
     	var content = document.getElementById("content");
-    	// content.style.width
+    	content.style.width = canvas.width-LINE_WIDTH + "px";
     }
 
     // last function call in resize

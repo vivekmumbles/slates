@@ -9,6 +9,7 @@ body {
 #content {
 	padding: 0px;
 	margin: auto;
+	background-color: green;
 }
 
 #title {
