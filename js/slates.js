@@ -131,8 +131,8 @@ function Slates() {
     	ctx.shadowOffsetY = 0;
     	ctx.shadowOffsetX = 0;
 
-    	canvas.style.marginTop  = -LINE_WIDTH/2 + "px";
-    	canvas.style.marginLeft = -LINE_WIDTH/2 + "px";
+    	// canvas.style.marginTop  = -LINE_WIDTH/2 + "px";
+    	// canvas.style.marginLeft = -LINE_WIDTH/2 + "px";
 
     	var content = document.getElementById("content");
     	// content.style.width
