@@ -693,7 +693,7 @@ function mouseClickListener(e) {
         canvas.width  = size;
         canvas.height = size;
 
-        content.style.width  = size-50 + "px";
+        content.style.width  = size + "px";
         content.style.height = wh   + "px";
 
         canvas.parentElement.style.height = size + "px";
