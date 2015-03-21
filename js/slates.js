@@ -6,9 +6,9 @@
                        \/\_____\ \_____\ \_\ \_\ \ \_\ \ \_____\/\_____\ 
                         \/_____/\/_____/\/_/\/_/  \/_/  \/_____/\/_____/ 
                                                                          
-                        \*================================================================================================*/
+\*================================================================================================*/
 
-                        "use strict";
+"use strict";
 
 //== utility functions ===========================================================================\\
 
@@ -42,14 +42,12 @@ Array.prototype.equals = function(array) {
 Array.prototype.hasMember = function(x) {
 	if (this.length === 0) return false;
 	for(var i = 0; i < this.length; i++) {
-		if ((this[i] instanceof Array && x instanceof Array) ||
-			(this[i] instanceof Object && x instanceof Object)) {
+		if ((this[i] instanceof Array && x instanceof Array) || (this[i] instanceof Object && x instanceof Object)) {
 			if (this[i].equals(x)) return true;
-	} else if (this[i] === x) return true;
-} return false;
+		} else if (this[i] === x) return true;
+	} return false;
 }
 
-// TODO: menu, undo, swipe for touch, add option for hearistic, allow for list of animations
 
 function Slates() {
 
@@ -688,37 +686,37 @@ function mouseClickListener(e) {
 
     	var size = (wh < ww) ? Math.round(wh*.8) : ww;
 
-        width = size;
-        height = size;
-        canvas.width  = size;
-        canvas.height = size;
+    	width = size;
+    	height = size;
+    	canvas.width  = size;
+    	canvas.height = size;
 
-        content.style.width  = size + "px";
-        content.style.height = wh   + "px";
+    	content.style.width  = size + "px";
+    	content.style.height = wh   + "px";
 
-        canvas.parentElement.style.height = size + "px";
-        canvas.parentElement.style.width  = size + "px";
+    	canvas.parentElement.style.height = size + "px";
+    	canvas.parentElement.style.width  = size + "px";
 
-        var menuHeight = Math.round(wh-size);
+    	var menuHeight = Math.round(wh-size);
 
-        if (menuHeight/window.innerHeight > .4) menuHeight -= 20;
+    	if (menuHeight/window.innerHeight > .4) menuHeight -= 20;
 
-        menu.style.height = menuHeight + "px";
+    	menu.style.height = menuHeight + "px";
 
-        title.style.fontSize = width/7 + "px";
+    	title.style.fontSize = width/7 + "px";
 
-        overlay.style.width = size + "px";
-        overlay.style.marginLeft = (ww-size)/2 + "px";
+    	overlay.style.width = size + "px";
+    	overlay.style.marginLeft = (ww-size)/2 + "px";
 
         // finally query the various pixel ratios
-		var devicePixelRatio  = window.devicePixelRatio || 1;
-		var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
-								ctx.mozBackingStorePixelRatio ||
-								ctx.msBackingStorePixelRatio ||
-								ctx.oBackingStorePixelRatio ||
-								ctx.backingStorePixelRatio || 1;
+        var devicePixelRatio  = window.devicePixelRatio || 1;
+        var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
+        ctx.mozBackingStorePixelRatio ||
+        ctx.msBackingStorePixelRatio ||
+        ctx.oBackingStorePixelRatio ||
+        ctx.backingStorePixelRatio || 1;
 
-		var ratio = devicePixelRatio / backingStoreRatio;
+        var ratio = devicePixelRatio / backingStoreRatio;
 
     	// upscale the canvas if the two ratios don't match
     	if (devicePixelRatio !== backingStoreRatio) {
