@@ -41,5 +41,6 @@
 
 	// triggerBttn.addEventListener( 'click', toggleOverlay );
 	triggerBttn.onclick = toggleOverlay;
-	closeBttn.addEventListener( 'click', toggleOverlay );
+	// closeBttn.addEventListener( 'click', toggleOverlay );
+	closeBttn.onclick = toggleOverlay;
 })();

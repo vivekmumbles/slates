@@ -686,6 +686,8 @@ function mouseClickListener(e) {
 
     	var size = (wh < ww) ? Math.round(wh*.8) : ww;
 
+        console.log(size);
+
     	width = size;
     	height = size;
     	canvas.width  = size;
@@ -699,7 +701,7 @@ function mouseClickListener(e) {
 
     	var menuHeight = Math.round(wh-size);
 
-    	if (menuHeight/window.innerHeight > .4) menuHeight -= 20;
+    	if (menuHeight/window.innerHeight > .3) menuHeight -= 40; // mobile
 
     	menu.style.height = menuHeight + "px";
 

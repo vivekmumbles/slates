@@ -12,8 +12,8 @@
 /* Overlay closing cross */
 .overlay .overlay-close {
 	position: absolute;
-	right: 7%;
-	top: 5%;
+	right: 8%;
+	top: 8%;
 	overflow: hidden;
 	border: none;
 	z-index: 100;
@@ -27,6 +27,8 @@
 	height: 60%;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
+	margin-top: 15%;
+	font-weight: 900;
 }
 
 .overlay ul {
@@ -63,20 +65,40 @@
 }
 
 /* Effects */
-.overlay-scale {
+/*.overlay-scale {
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transform: scale(0.9);
 	transform: scale(0.9);
 	-webkit-transition: -webkit-transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
 	transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
+}*/
+
+.overlay-scale {
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
+	-webkit-transition: -webkit-transform 0.2s;
+	transition: transform 0.2s, visibility 0s 0.2s;
 }
 
-.overlay-scale.open {
+
+/*.overlay-scale.open {
 	visibility: visible;
 	opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);	
+	-webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
+	transition: transform 0.4s, opacity 0.4s;
+}*/
+
+
+.overlay-scale.open {
+	visibility: visible;
+	opacity: 1;
+	-webkit-transform: translateX(0%);
+	transform: translateX(0%);	
 	-webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
 	transition: transform 0.4s, opacity 0.4s;
 }

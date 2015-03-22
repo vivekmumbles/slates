@@ -37,18 +37,18 @@ body {
 
 #menu-btn {
 	float: right;
-	margin-top: 7%;
-	margin-right: 5%;
+	margin-top: 10%;
+	margin-right: 7%;
 }
 
 div img {
 	width: 32px;
 }
 
-#overlay-close {
+/*#overlay-close {
 	float: right;
 	margin-right: -3px;
-}
+}*/
 
 #canvas-wrapper {
 	padding: 0px;
