@@ -3,16 +3,17 @@ body {
 	margin: 0px;
 	padding: 0px;
 	background-color: rgba(252, 252, 252, 1);
-	/*background-color: yellow;*/
 	overflow: hidden;
-	/*width: 500px;*/
 }
 
 #content {
 	padding: 0px;
 	margin: auto;
-	/*background-color: green;*/
 	overflow: hidden;
+}
+
+#header {
+	display: block;
 }
 
 #title {
@@ -28,27 +29,27 @@ body {
 	width: 64px;
 	height: 64px;
 	background-color: green;
-	text-align: center;
 	display: inline-block;
 	margin-top: 5%;
-	margin-left: 6%;
-	border-radius: 20px;
+	margin-left: 4%;
 }
 
 #menu-btn {
 	float: right;
 	margin-top: 10%;
-	margin-right: 7%;
+	margin-right: 5%;
 }
 
-div img {
+#new-game {
+	position: absolute;
+	background-color: rgb(254, 131, 50);
+	color: black;
+	z-index: 2
+}
+
+img {
 	width: 32px;
 }
-
-/*#overlay-close {
-	float: right;
-	margin-right: -3px;
-}*/
 
 #canvas-wrapper {
 	padding: 0px;

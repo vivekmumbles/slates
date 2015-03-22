@@ -11,58 +11,68 @@
 </head>
 <body>
 	<div id="content">
-		<div id="menu-wrapper">
+		<div id="header">
 
 			<h1 id="title">slates</h1>
-			<div id="logo">logo</div>
-			
+			<div id="logo"></div>
+
 			<div id="menu-btn">
-				<img src="./img/menu2.svg">
+				<a href="#"><img id="menu-img" src="./img/menu.svg"></a>
 			</div>
+
+
 		</div>
+
+		<a href="#"><div id="new-game">new game</div></a>
 
 		<div id="canvas-wrapper" class="">
 			<canvas id="canvas"></canvas>
 		</div>
 
-		<div id="overlay" class="overlay overlay-scale">
+		<div id="main-overlay" class="overlay overlay-scale">
 			<div id="overlay-close" class="overlay-close">
-				<!-- <i class="fa fa-times"></i> -->
-				<img src="./img/exit.svg">
+				<a href="#"><img class="exit-img" src="./img/exit.svg"></a>
 			</div>
-			<nav>
+			<div class="menu-content">
 				<ul>
-					<li><a href="#">Instructions</a></li>
+					<li><a id="instructions-btn" href="#">Instructions</a></li>
 					<li><a href="#">Easy</a></li>
 					<li><a href="#">Medium</a></li>
 					<li><a href="#">Hard</a></li>
 					<li><a href="#">Expert</a></li>
-					<li><a href="#">Settings</a></li>
+					<li><a id="settings-btn" href="#">Settings</a></li>
 				</ul>
-			</nav>
+			</div>
+		</div>
+
+		<div id="instructions-overlay" class="overlay overlay-scale">
+			<div id="overlay-close" class="overlay-close">
+				<a href="#"><img class="exit-img" src="./img/exit.svg"></a>
+			</div>
+			<div class="menu-content">
+				<p>
+					blah blah blah
+				</p>
+			</div>
+		</div>
+
+		<div id="settings-overlay" class="overlay overlay-scale">
+			<div id="overlay-close" class="overlay-close">
+				<a href="#"><img class="exit-img" src="./img/exit.svg"></a>
+			</div>
+			<div class="menu-content">
+				<ul>
+					<li>undo</li>
+					<li>grid size</li>
+					<li>number of slates</li>
+					<li>number of crumbs</li>
+					<li>save</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 
-<!-- 		<div id="overlay" class="overlay overlay-scale">
-			<div id="overlay-close" class="overlay-close">
-				<i class="fa fa-times"></i>
-			</div>
-			<nav>
-				<ul>
-					<li><a href="#">Instructions</a></li>
-					<li><a href="#">Easy</a></li>
-					<li><a href="#">Medium</a></li>
-					<li><a href="#">Hard</a></li>
-					<li><a href="#">Expert</a></li>
-					<li><a href="#">Settings</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div> -->
-
 	<link rel="stylesheet" type="text/css" href="css/menu.css">	
-	<script type="text/javascript" src="js/modernizr.custom.js"></script>
-	<script type="text/javascript" src="js/classie.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
 </body>
 </html>

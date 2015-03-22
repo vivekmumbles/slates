@@ -6,9 +6,9 @@
                        \/\_____\ \_____\ \_\ \_\ \ \_\ \ \_____\/\_____\ 
                         \/_____/\/_____/\/_/\/_/  \/_/  \/_____/\/_____/ 
                                                                          
-\*================================================================================================*/
+                        \*================================================================================================*/
 
-"use strict";
+                        "use strict";
 
 //== utility functions ===========================================================================\\
 
@@ -48,6 +48,18 @@ Array.prototype.hasMember = function(x) {
 	} return false;
 }
 
+function setIdStyle(id, style, value) {
+    var elem = document.getElementById(id);
+    elem.style[style] = value;
+}
+
+function setClassStyle(classname, style, value) {
+    var elems = document.getElementsByClassName(classname);
+    for(var i = 0; i < elems.length; ++i) {
+        elems[i].style[style] = value;
+    }
+}
+
 
 function Slates() {
 
@@ -79,7 +91,7 @@ function Slates() {
     // scaling
     var LINE_WIDTH_FACTOR = 8;  // larger => smaller
     var BR_FACTOR         = 10; // larger => smaller
-    var CRUMB_SIZE_FACTOR = 2.25;
+    var CRUMB_SIZE_FACTOR = 2.5;
     var FONT_SIZE_FACTOR  = 1.5;
     var SEL_HEIGHT_FACTOR = 10;
     var SHADOW_FACTOR     = 3;
@@ -679,36 +691,59 @@ function mouseClickListener(e) {
     	var ww = window.innerWidth;
     	var wh = window.innerHeight;
 
+        // TODO maybe abstract setting styles
+
     	var content = document.getElementById("content");
-    	var menu    = document.getElementById("menu-wrapper");
+    	var header  = document.getElementById("header");
     	var title   = document.getElementById("title");
+        var logo    = document.getElementById("logo");
+        var menuImg = document.getElementById("menu-img");
+        var gameBtn = document.getElementById("new-game");
+
     	var overlay = document.getElementById("overlay");
 
     	var size = (wh < ww) ? Math.round(wh*.8) : ww;
 
-        console.log(size);
+        width = size;
+        height = size;
+        canvas.width  = size;
+        canvas.height = size;
 
-    	width = size;
-    	height = size;
-    	canvas.width  = size;
-    	canvas.height = size;
+        content.style.width  = size + "px";
+        content.style.height = wh   + "px";
 
-    	content.style.width  = size + "px";
-    	content.style.height = wh   + "px";
+        canvas.parentElement.style.height = size + "px";
+        canvas.parentElement.style.width  = size + "px";
 
-    	canvas.parentElement.style.height = size + "px";
-    	canvas.parentElement.style.width  = size + "px";
+        var headerHeight = Math.round(wh-size);
 
-    	var menuHeight = Math.round(wh-size);
+    	if (headerHeight/window.innerHeight > .3) headerHeight -= 40; // mobile
 
-    	if (menuHeight/window.innerHeight > .3) menuHeight -= 40; // mobile
+    	header.style.height = headerHeight + "px";
 
-    	menu.style.height = menuHeight + "px";
+    	title.style.fontSize = size/7 + "px";
 
-    	title.style.fontSize = width/7 + "px";
+        logo.style.width  = size/14 + "px";
+        logo.style.height = size/14 + "px";
 
-    	overlay.style.width = size + "px";
-    	overlay.style.marginLeft = (ww-size)/2 + "px";
+        menuImg.style.width = size/14 + "px";
+
+        var fs = size/30;
+
+        gameBtn.style.marginLeft = size*.05 + "px";
+        gameBtn.style.marginTop  = -fs + "px";
+        gameBtn.style.fontSize = fs + "px";
+        gameBtn.style.padding = fs/4 + "px";
+        gameBtn.style.borderRadius = fs/4 + "px";
+
+
+        setClassStyle("overlay", "width", size+"px");
+        setClassStyle("overlay", "margin-left", (ww-size)/2+"px");
+
+        setClassStyle("exit-img", "width", size/14+"px");
+
+        setClassStyle("menu-content", "font-size", size/14+"px");
+
 
         // finally query the various pixel ratios
         var devicePixelRatio  = window.devicePixelRatio || 1;

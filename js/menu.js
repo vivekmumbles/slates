@@ -1,46 +1,45 @@
-(function() {
-	var triggerBttn = document.getElementById('menu-btn');
-	var	overlay = document.querySelector( 'div.overlay' );
-	var	closeBttn = document.getElementById('overlay-close');
-	var	transEndEventNames = {
-			'WebkitTransition': 'webkitTransitionEnd',
-			'MozTransition': 'transitionend',
-			'OTransition': 'oTransitionEnd',
-			'msTransition': 'MSTransitionEnd',
-			'transition': 'transitionend'
-		};
-	var	transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
-	var	support = { transitions : Modernizr.csstransitions };
 
-	function toggleOverlay() {
-		if( classie.has( overlay, 'open' ) ) {
-			classie.remove( overlay, 'open' );
-			classie.add( overlay, 'close' );
-			var onEndTransitionFn = function( ev ) {
-				if( support.transitions ) {
-					if( ev.propertyName !== 'visibility' ) return;
-					this.removeEventListener( transEndEventName, onEndTransitionFn );
-				}
-				classie.remove( overlay, 'close' );
-			};
-			if( support.transitions ) {
-				overlay.addEventListener( transEndEventName, onEndTransitionFn );
-			}
-			else {
-				onEndTransitionFn();
-			}
+var currentMenu = null;
 
-			triggerBttn.style.visibility = 'visible';
-		}
-		else if( !classie.has( overlay, 'close' ) ) {
-			classie.add( overlay, 'open' );
+var menuBtn         = document.getElementById("menu-btn");
+var	closeBtns       = document.getElementsByClassName("overlay-close");
+var instructionsBtn = document.getElementById("instructions-btn");
+var settingsBtn     = document.getElementById("settings-btn");
 
-			triggerBttn.style.visibility = 'hidden';
-		}
+function closeMenus() {
+	var menus = document.getElementsByClassName("overlay");
+	for(var i = 0; i < menus.length; ++i) {
+		menus[i].classList.remove("open");
+		menus[i].classList.add("close");
+		menuBtn.style.visibility = "visible";
 	}
+}
 
-	// triggerBttn.addEventListener( 'click', toggleOverlay );
-	triggerBttn.onclick = toggleOverlay;
-	// closeBttn.addEventListener( 'click', toggleOverlay );
-	closeBttn.onclick = toggleOverlay;
-})();
+function openMenu(id) {
+	closeMenus();
+	var menu = document.getElementById(id);
+	menu.classList.remove("close");
+	menu.classList.add("open");
+	menuBtn.style.visibility = "hidden";
+	currentMenu = id;
+
+}
+
+function prevMenu() {
+	if (currentMenu === "main-overlay") {
+		closeMenus();
+	} else if (currentMenu === "instructions-overlay" ||
+		currentMenu === "settings-overlay") {
+		openMenu("main-overlay");
+		currentMenu = "main-overlay";
+	}
+}
+
+menuBtn.onclick         = function() { openMenu("main-overlay"); };
+instructionsBtn.onclick = function() { openMenu("instructions-overlay"); };
+settingsBtn.onclick     = function() { openMenu("settings-overlay"); };
+
+for(var i = 0; i < closeBtns.length; ++i) {
+	closeBtns[i].onclick = closeMenus;
+}
+
