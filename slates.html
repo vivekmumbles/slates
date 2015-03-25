@@ -4,8 +4,6 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 	<title>Slates</title>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 	<link rel="stylesheet" type="text/css" href="css/slates.css">
 	<script type="text/javascript" src="js/slates.js"></script>
 </head>
@@ -17,13 +15,13 @@
 			<div id="logo"></div>
 
 			<div id="menu-btn">
-				<a href="#"><img id="menu-img" src="./img/menu.svg"></a>
+				<img id="menu-img" src="./img/menu.svg">
 			</div>
 
 
 		</div>
 
-		<a href="#"><div id="new-game">new game</div></a>
+		<div id="new-game">new game</div>
 
 		<div id="canvas-wrapper" class="">
 			<canvas id="canvas"></canvas>
@@ -31,23 +29,23 @@
 
 		<div id="main-overlay" class="overlay overlay-scale">
 			<div id="overlay-close" class="overlay-close">
-				<a href="#"><img class="exit-img" src="./img/exit.svg"></a>
+				<img class="exit-img" src="./img/exit.svg">
 			</div>
 			<div class="menu-content">
 				<ul>
-					<li><a id="instructions-btn" href="#">Instructions</a></li>
-					<li><a href="#">Easy</a></li>
-					<li><a href="#">Medium</a></li>
-					<li><a href="#">Hard</a></li>
-					<li><a href="#">Expert</a></li>
-					<li><a id="settings-btn" href="#">Settings</a></li>
+					<li id="instructions-btn">Instructions</li>
+					<li id="easy">Easy</li>
+					<li id="medium">Medium</li>
+					<li id="hard">Hard</li>
+					<li id="expert">Expert</li>
+					<li id="settings-btn">Settings</li>
 				</ul>
 			</div>
 		</div>
 
 		<div id="instructions-overlay" class="overlay overlay-scale">
 			<div id="overlay-close" class="overlay-close">
-				<a href="#"><img class="exit-img" src="./img/exit.svg"></a>
+				<img class="exit-img" src="./img/exit.svg">
 			</div>
 			<div class="menu-content">
 				<p>
@@ -58,19 +56,66 @@
 
 		<div id="settings-overlay" class="overlay overlay-scale">
 			<div id="overlay-close" class="overlay-close">
-				<a href="#"><img class="exit-img" src="./img/exit.svg"></a>
+				<img class="exit-img" src="./img/exit.svg">
 			</div>
 			<div class="menu-content">
-				<ul>
+				<!-- <ul>
 					<li>undo</li>
 					<li>grid size</li>
 					<li>number of slates</li>
 					<li>number of crumbs</li>
 					<li>save</li>
-				</ul>
+				</ul> -->
+				<table>
+					<tr>
+						<th>undo</th>
+						<th>
+
+						</th>
+					</tr>
+					<tr>
+						<td>grid-size</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>slates</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>crumbs</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>save</td>
+						<td></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
+
+	<div id="win-overlay" class="overlay overlay-scale">
+		<div id="overlay-close" class="overlay-close">
+			<img class="exit-img" src="./img/exit.svg">
+		</div>
+		<div class="menu-content">
+			<p>
+				You Won! :)
+			</p>
+		</div>
+	</div>
+
+	<div id="lose-overlay" class="overlay overlay-scale">
+		<div id="overlay-close" class="overlay-close">
+			<img class="exit-img" src="./img/exit.svg">
+		</div>
+		<div class="menu-content">
+			<p>
+				You Lost! :(
+			</p>
+		</div>
+	</div>
+
 
 	<link rel="stylesheet" type="text/css" href="css/menu.css">	
 	<script type="text/javascript" src="js/menu.js"></script>

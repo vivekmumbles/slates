@@ -90,7 +90,7 @@ function Slates() {
 
     // scaling
     var LINE_WIDTH_FACTOR = 8;  // larger => smaller
-    var BR_FACTOR         = 10; // larger => smaller
+    var BR_FACTOR         = 30; // larger => smaller
     var CRUMB_SIZE_FACTOR = 2.5;
     var FONT_SIZE_FACTOR  = 1.5;
     var SEL_HEIGHT_FACTOR = 10;
@@ -115,7 +115,7 @@ function Slates() {
     var LP_OFS;
 
     // global vars
-
+    
     var finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];    
     var crumbs     = [{loc: finalState, visited: false}];
     var grid       = initGrid();
@@ -584,8 +584,8 @@ return backTrack(newLeft).concat(backTrack(newRight));
     		target = null;
     		animate = false;
 
-    		if      (checkWinner()) alert("You Won!");
-    		else if (checkLoser()) alert("You Lost!");
+    		if      (checkWinner()) openMenu("win-overlay"); // alert("You Won!");
+    		else if (checkLoser())  openMenu("lose-overlay"); // alert("You Lost!");
     	}
     }
 
@@ -693,16 +693,24 @@ function mouseClickListener(e) {
 
         // TODO maybe abstract setting styles
 
-    	var content = document.getElementById("content");
-    	var header  = document.getElementById("header");
-    	var title   = document.getElementById("title");
+        var content = document.getElementById("content");
+        var header  = document.getElementById("header");
+        var title   = document.getElementById("title");
         var logo    = document.getElementById("logo");
         var menuImg = document.getElementById("menu-img");
         var gameBtn = document.getElementById("new-game");
 
-    	var overlay = document.getElementById("overlay");
+        // var overlay = document.getElementById("overlay");
 
-    	var size = (wh < ww) ? Math.round(wh*.8) : ww;
+        // var size = (wh < ww) ? Math.round(wh*.8) : ww;
+        var size = Math.min(ww,wh)*.8;
+
+        var headerHeight = Math.round(wh-size);
+
+        if (headerHeight/window.innerHeight > .3) {
+            size = Math.min(ww,wh)*.9;
+            headerHeight = Math.round(wh-size)*.75;
+        }
 
         width = size;
         height = size;
@@ -715,13 +723,9 @@ function mouseClickListener(e) {
         canvas.parentElement.style.height = size + "px";
         canvas.parentElement.style.width  = size + "px";
 
-        var headerHeight = Math.round(wh-size);
+        header.style.height = headerHeight + "px";
 
-    	if (headerHeight/window.innerHeight > .3) headerHeight -= 40; // mobile
-
-    	header.style.height = headerHeight + "px";
-
-    	title.style.fontSize = size/7 + "px";
+        title.style.fontSize = size/7 + "px";
 
         logo.style.width  = size/14 + "px";
         logo.style.height = size/14 + "px";
@@ -734,7 +738,7 @@ function mouseClickListener(e) {
         gameBtn.style.marginTop  = -fs + "px";
         gameBtn.style.fontSize = fs + "px";
         gameBtn.style.padding = fs/4 + "px";
-        gameBtn.style.borderRadius = fs/4 + "px";
+        gameBtn.style.borderRadius = fs/6 + "px";
 
 
         setClassStyle("overlay", "width", size+"px");
@@ -776,32 +780,107 @@ function mouseClickListener(e) {
         setDerivedProperties();
     };
 
-    Slates.prototype.init = function() {
+    Slates.prototype.init = function(config) {
+
     	canvas = document.getElementById("canvas");
     	ctx = canvas.getContext("2d");
 
+        GRID_SIZE     = config.GRID_SIZE;
+        NUM_OF_SLATES = config.SLATES;
+        NUM_OF_CRUMBS = (function(x) { return Math.max(Math.min(x,NUM_OF_SLATES-1),1); })(config.CRUMBS);
 
-    	this.resize();
+        finalState = [randint(1, GRID_SIZE-1), randint(1, GRID_SIZE-1)];    
+        crumbs     = [{loc: finalState, visited: false}];
+        grid       = initGrid();
+        slates     = initSlates();
+        hover      = [-1,-1];
+        selection  = [];
 
-    	slates = backTrack(slates);
-    	grid = initGrid();
-    	updateGrid(slates);
+        // animation global 
+        aPos = null;
+        bPos = null;
 
-    	canvas.onmousemove  = mouseMotionListener;
-    	canvas.onmouseleave = mouseExitListener;
-    	canvas.onclick      = mouseClickListener;
+        animate    = false;
+        target     = null;
+        rot        = 0;
+        TARGET_ROT = 2*Math.PI; // radians
+
+        this.resize();
+
+        slates = backTrack(slates);
+        grid = initGrid();
+        updateGrid(slates);
+
+        canvas.onmousemove  = mouseMotionListener;
+        canvas.onmouseleave = mouseExitListener;
+        canvas.onclick      = mouseClickListener;
     };	
 
     Slates.prototype.main = function() {
-    	render();
-    }
+       render();
+   }
 }
 
 //== onload ======================================================================================\\
 
+var config = {
+    GRID_SIZE: 4,
+    SLATES: 8,
+    CRUMBS: 3
+};
+
+function bindMenu(slates) {
+    var gameBtn = document.getElementById("new-game"); 
+    var easy    = document.getElementById("easy");
+    var medium  = document.getElementById("medium");
+    var hard    = document.getElementById("hard");
+    var expert  = document.getElementById("expert");
+
+    gameBtn.onclick = function() {
+        slates.init(config);
+    }
+
+    easy.onclick = function() {
+        config = {
+            GRID_SIZE: 4,
+            SLATES: 8,
+            CRUMBS: 3
+        };
+        slates.init(config);
+    }
+
+    medium.onclick = function() {
+        config = {
+            GRID_SIZE: 5,
+            SLATES: 12,
+            CRUMBS: 2
+        };
+        slates.init(config);
+    }
+
+    hard.onclick = function() {
+        config = {
+            GRID_SIZE: 7,
+            SLATES: 24,
+            CRUMBS: 3
+        };
+        slates.init(config);
+    }
+
+    expert.onclick = function() {
+        config = {
+            GRID_SIZE: 8,
+            SLATES: 32,
+            CRUMBS: 5
+        };
+        slates.init(config);
+    }
+}
+
 window.onload = function() {
 	var slates = new Slates();
-	slates.init();
-	window.onresize = slates.resize.bind(slates);
-	window.requestAnimationFrame(slates.main.bind(slates));
+	slates.init(config);
+    bindMenu(slates);
+    window.onresize = slates.resize.bind(slates);
+    window.requestAnimationFrame(slates.main.bind(slates));
 };

@@ -1,9 +1,15 @@
 
+@font-face {
+	font-family: "Clear Sans Bold";
+	src: url(../fnt/clear-sans/ClearSans-Bold.ttf) format("truetype");
+}
+
 body {
 	margin: 0px;
 	padding: 0px;
 	background-color: rgba(252, 252, 252, 1);
 	overflow: hidden;
+	font-family: "Clear Sans Bold";
 }
 
 #content {
@@ -38,17 +44,20 @@ body {
 	float: right;
 	margin-top: 10%;
 	margin-right: 5%;
+	cursor: pointer;
 }
 
 #new-game {
 	position: absolute;
-	background-color: rgb(254, 131, 50);
+	background-color: rgb(255, 165, 0);
 	color: black;
-	z-index: 2
+	z-index: 2;
+	cursor: pointer;
 }
 
-img {
-	width: 32px;
+table {
+	text-align: left;
+	margin: auto;
 }
 
 #canvas-wrapper {

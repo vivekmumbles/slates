@@ -17,6 +17,10 @@
 	opacity: .5;
 }
 
+.exit-img {
+	cursor: pointer;
+}
+
 /* Menu style */
 .menu-content {
 	text-align: center;
@@ -37,14 +41,10 @@
 .menu-content ul li {
 	height: 20%;
 	margin-bottom: -5%;
+	cursor: pointer;
 }
 
-a {
-	color: rgba(125, 125, 125, 1);
-	text-decoration: none;
-}
-
-a:hover {
+.menu-content ul li:hover {
 	color: rgba(0, 0, 0, .7);
 }
 
