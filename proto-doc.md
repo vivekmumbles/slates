@@ -15,7 +15,8 @@ Feedback:
 - add social networking ability
 - add instructions GIF
 - they liked the colors
-- create level configurations
+- create better levels
+- allow for user to create custom levels
 
 # Part 2
 
