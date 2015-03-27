@@ -15,3 +15,16 @@ Feedback:
 - add social networking ability
 - add instructions GIF
 - they liked the colors
+- create level configurations
+
+# Part 2
+
+- added an undo option, but not the functionality
+- changed level configurations
+- created the option for users to create their own levels
+
+I didn't do the rest because I suck really bad at CSS and ran out of time.
+
+# Part 3
+
+They liked the new levels and the ability to create their own custom levels
