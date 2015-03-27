@@ -371,7 +371,7 @@ return backTrack(newLeft).concat(backTrack(newRight));
     		var cl = crumbs[i].loc;
     		c += grid[cl[0]][cl[1]];
     		v &= crumbs[i].visited;
-    		if (c > 1 || v == 0) return false;
+    		if (c != 1 || v == 0) return false;
     	}
 
     	var num = 0;
