@@ -2,7 +2,7 @@
 var currentMenu = null;
 
 var menuBtn         = document.getElementById("menu-btn");
-var	closeBtns       = document.getElementsByClassName("overlay-close");
+var	closeBtns       = document.getElementsByClassName("exit-btn");
 var instructionsBtn = document.getElementById("instructions-btn");
 var settingsBtn     = document.getElementById("settings-btn");
 
@@ -43,3 +43,22 @@ for(var i = 0; i < closeBtns.length; ++i) {
 	closeBtns[i].onclick = closeMenus;
 }
 
+document.getElementById("toggle-wrapper").onclick = function() {
+  var off = document.getElementById("off");
+  var on = document.getElementById("on");
+	if (this.getAttribute("val") === "OFF") {
+    off.style.left = "-100%";
+    on.style.left = "0%";
+    this.setAttribute("val", "ON");
+  } else {
+    off.style.left = "0%";
+    on.style.left = "100%"
+    this.setAttribute("val", "OFF");
+  }
+};
+
+function setConfig() {
+	document.getElementById("grid-size-config").value = config.GRID_SIZE;
+    document.getElementById("slates-config").value = config.SLATES;
+    document.getElementById("crumbs-config").value = config.CRUMBS;
+}

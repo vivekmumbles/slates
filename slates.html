@@ -28,9 +28,7 @@
 		</div>
 
 		<div id="main-overlay" class="overlay overlay-scale">
-			<div id="overlay-close" class="overlay-close">
-				<img class="exit-img" src="./img/exit.svg">
-			</div>
+			<img class="exit-btn" src="./img/exit.svg">
 			<div class="menu-content">
 				<ul>
 					<li id="instructions-btn">Instructions</li>
@@ -44,9 +42,7 @@
 		</div>
 
 		<div id="instructions-overlay" class="overlay overlay-scale">
-			<div id="overlay-close" class="overlay-close">
-				<img class="exit-img" src="./img/exit.svg">
-			</div>
+			<img class="exit-btn" src="./img/exit.svg">
 			<div class="menu-content">
 				<p>
 					blah blah blah
@@ -55,9 +51,7 @@
 		</div>
 
 		<div id="settings-overlay" class="overlay overlay-scale">
-			<div id="overlay-close" class="overlay-close">
-				<img class="exit-img" src="./img/exit.svg">
-			</div>
+			<img class="exit-btn" src="./img/exit.svg">
 			<div class="menu-content">
 				<!-- <ul>
 					<li>undo</li>
@@ -68,36 +62,43 @@
 				</ul> -->
 				<table>
 					<tr>
-						<th>undo</th>
-						<th>
-
-						</th>
+						<td class="categ">undo</td>
+						<td>
+							<div id="toggle-wrapper" val="OFF">
+								<div id="off">OFF</div>
+								<div id="on">ON</div>
+							</div>
+						</td>
 					</tr>
 					<tr>
-						<td>grid-size</td>
-						<td></td>
+						<td class="categ">grid-size</td>
+						<td class="config-box">
+							<input id="grid-size-config" class="config-input" type="number" name="grid-size" value="">
+						</td>
 					</tr>
 					<tr>
-						<td>slates</td>
-						<td></td>
+						<td class="categ">slates</td>
+						<td class="config-box">
+							<input id="slates-config" class="config-input" type="number" name="slates" value="">
+						</td>
 					</tr>
 					<tr>
-						<td>crumbs</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>save</td>
-						<td></td>
+						<td class="categ">crumbs</td>
+						<td class="config-box">
+							<input id="crumbs-config" class="config-input" type="number" name="crumbs" value="">
+						</td>
 					</tr>
 				</table>
+
+				<div id="save-wrapper">
+					<div id="save-config">save</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div id="win-overlay" class="overlay overlay-scale">
-		<div id="overlay-close" class="overlay-close">
-			<img class="exit-img" src="./img/exit.svg">
-		</div>
+		<img class="exit-btn" src="./img/exit.svg">
 		<div class="menu-content">
 			<p>
 				You Won! :)
@@ -106,9 +107,7 @@
 	</div>
 
 	<div id="lose-overlay" class="overlay overlay-scale">
-		<div id="overlay-close" class="overlay-close">
-			<img class="exit-img" src="./img/exit.svg">
-		</div>
+		<img class="exit-btn" src="./img/exit.svg">
 		<div class="menu-content">
 			<p>
 				You Lost! :(

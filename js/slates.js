@@ -709,7 +709,7 @@ function mouseClickListener(e) {
 
         if (headerHeight/window.innerHeight > .3) {
             size = Math.min(ww,wh)*.9;
-            headerHeight = Math.round(wh-size)*.75;
+            headerHeight = Math.round(wh-size)*.8;
         }
 
         width = size;
@@ -744,7 +744,7 @@ function mouseClickListener(e) {
         setClassStyle("overlay", "width", size+"px");
         setClassStyle("overlay", "margin-left", (ww-size)/2+"px");
 
-        setClassStyle("exit-img", "width", size/14+"px");
+        setClassStyle("exit-btn", "width", size/14+"px");
 
         setClassStyle("menu-content", "font-size", size/14+"px");
 
@@ -817,16 +817,16 @@ function mouseClickListener(e) {
     };	
 
     Slates.prototype.main = function() {
-       render();
-   }
+     render();
+ }
 }
 
 //== onload ======================================================================================\\
 
 var config = {
-    GRID_SIZE: 4,
-    SLATES: 8,
-    CRUMBS: 3
+    GRID_SIZE: 3,
+    SLATES: 5,
+    CRUMBS: 2
 };
 
 function bindMenu(slates) {
@@ -835,6 +835,7 @@ function bindMenu(slates) {
     var medium  = document.getElementById("medium");
     var hard    = document.getElementById("hard");
     var expert  = document.getElementById("expert");
+    var save    = document.getElementById("save-config");
 
     gameBtn.onclick = function() {
         slates.init(config);
@@ -842,36 +843,58 @@ function bindMenu(slates) {
 
     easy.onclick = function() {
         config = {
-            GRID_SIZE: 4,
-            SLATES: 8,
-            CRUMBS: 3
+            GRID_SIZE: 3,
+            SLATES: 5,
+            CRUMBS: 2
         };
+        setConfig();
         slates.init(config);
     }
 
     medium.onclick = function() {
         config = {
-            GRID_SIZE: 5,
+            GRID_SIZE: 4,
             SLATES: 12,
-            CRUMBS: 2
+            CRUMBS: 3
         };
+        setConfig();
         slates.init(config);
     }
 
     hard.onclick = function() {
         config = {
-            GRID_SIZE: 7,
-            SLATES: 24,
+            GRID_SIZE: 5,
+            SLATES: 20,
             CRUMBS: 3
         };
+        setConfig();
         slates.init(config);
     }
 
     expert.onclick = function() {
         config = {
-            GRID_SIZE: 8,
+            GRID_SIZE: 6,
             SLATES: 32,
             CRUMBS: 5
+        };
+        setConfig();
+        slates.init(config);
+    }
+
+    save.onclick = function() {
+        var gridSizeConfig = document.getElementById("grid-size-config").value;
+        var slatesConfig   = document.getElementById("slates-config").value;
+        var crumbsConfig   = document.getElementById("crumbs-config").value;
+
+        if (gridSizeConfig < 2 || slatesConfig < 2 || crumbsConfig < 1) {
+            alert("Invalid Config!");
+            return;
+        }
+
+        config = {
+            GRID_SIZE: gridSizeConfig,
+            SLATES: slatesConfig,
+            CRUMBS: crumbsConfig
         };
         slates.init(config);
     }
@@ -879,7 +902,8 @@ function bindMenu(slates) {
 
 window.onload = function() {
 	var slates = new Slates();
-	slates.init(config);
+    setConfig();
+    slates.init(config);
     bindMenu(slates);
     window.onresize = slates.resize.bind(slates);
     window.requestAnimationFrame(slates.main.bind(slates));
