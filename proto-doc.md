@@ -19,6 +19,7 @@ Feedback:
 - they liked the colors
 - create better levels
 - allow for user to create custom levels
+- add logo
 
 # Part 2
 
