@@ -371,7 +371,7 @@ return backTrack(newLeft).concat(backTrack(newRight));
     		var cl = crumbs[i].loc;
     		c += grid[cl[0]][cl[1]];
     		v &= crumbs[i].visited;
-    		if (c != 1 || v == 0) return false;
+    		if (c > 1 || v == 0) return false;
     	}
 
     	var num = 0;
@@ -679,7 +679,7 @@ function mouseClickListener(e) {
     	renderNumbers();
     	renderSelection();
     	animateSlates();
-    	// renderHover();
+    	renderHover();
 
     	window.requestAnimationFrame(render);
     };
@@ -695,7 +695,7 @@ function mouseClickListener(e) {
 
         var content = document.getElementById("content");
         var header  = document.getElementById("header");
-        var title   = document.getElementById("title");
+        // var title   = document.getElementById("title");
         var logo    = document.getElementById("logo");
         var menuImg = document.getElementById("menu-img");
         var gameBtn = document.getElementById("new-game");
@@ -725,10 +725,10 @@ function mouseClickListener(e) {
 
         header.style.height = headerHeight + "px";
 
-        title.style.fontSize = size/7 + "px";
+        // title.style.fontSize = size/7 + "px";
 
-        logo.style.width  = size/14 + "px";
-        logo.style.height = size/14 + "px";
+        logo.style.width  = size/2.25 + "px";
+        // logo.style.height = size/14 + "px";
 
         menuImg.style.width = size/14 + "px";
 
@@ -864,8 +864,8 @@ function bindMenu(slates) {
     hard.onclick = function() {
         config = {
             GRID_SIZE: 5,
-            SLATES: 20,
-            CRUMBS: 3
+            SLATES: 48,
+            CRUMBS: 12
         };
         setConfig();
         slates.init(config);
@@ -874,8 +874,8 @@ function bindMenu(slates) {
     expert.onclick = function() {
         config = {
             GRID_SIZE: 6,
-            SLATES: 32,
-            CRUMBS: 5
+            SLATES: 64,
+            CRUMBS: 16
         };
         setConfig();
         slates.init(config);

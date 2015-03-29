@@ -1,7 +1,9 @@
 
 @font-face {
-	font-family: "Clear Sans Bold";
-	src: url(../fnt/clear-sans/ClearSans-Bold.ttf) format("truetype");
+	/*font-family: "Clear Sans Bold";*/
+	/*src: url(../fnt/clear-sans/ClearSans-Bold.ttf) format("truetype");*/
+	font-family: "myriad-pro";
+	src: url(../fnt/myriad-pro/MYRIADPRO-REGULAR.OTF) format("opentype");
 }
 
 body {
@@ -9,7 +11,8 @@ body {
 	padding: 0px;
 	background-color: rgba(252, 252, 252, 1);
 	overflow: hidden;
-	font-family: "Clear Sans Bold";
+	/*font-family: "Clear Sans Bold";*/
+	font-family: "myriad-pro";
 }
 
 #content {
@@ -32,9 +35,6 @@ body {
 }
 
 #logo {
-	width: 64px;
-	height: 64px;
-	background-color: green;
 	display: inline-block;
 	margin-top: 5%;
 	margin-left: 4%;
