@@ -735,7 +735,7 @@ function mouseClickListener(e) {
         var fs = size/30;
 
         gameBtn.style.marginLeft = size*.05 + "px";
-        gameBtn.style.marginTop  = -fs + "px";
+        gameBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
         gameBtn.style.fontSize = fs + "px";
         gameBtn.style.padding = fs/4 + "px";
         gameBtn.style.borderRadius = fs/6 + "px";
