@@ -1,0 +1,123 @@
+<!DOCTYPE  html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
+	<title>Slates</title>
+	<link rel="stylesheet" type="text/css" href="css/slates.css">
+	<script type="text/javascript" src="js/slates.js"></script>
+</head>
+<body>
+	<div id="content">
+		<div id="header">
+
+			<!-- <h1 id="title">slates</h1> -->
+			<img id="logo" src="img/slates-logo.svg">
+
+			<div id="menu-btn">
+				<img id="menu-img" src="./img/menu.svg">
+			</div>
+
+			<div id="new-game">new game</div>
+
+		</div>
+
+		
+
+		<div id="canvas-wrapper" class="">
+			<canvas id="canvas"></canvas>
+		</div>
+
+		<div id="main-overlay" class="overlay overlay-scale">
+			<img class="exit-btn" src="./img/exit.svg">
+			<div class="menu-content">
+				<ul>
+					<li id="instructions-btn">Instructions</li>
+					<li id="easy">Easy</li>
+					<li id="medium">Medium</li>
+					<li id="hard">Hard</li>
+					<li id="expert">Expert</li>
+					<li id="settings-btn">Settings</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="instructions-overlay" class="overlay overlay-scale">
+			<img class="exit-btn" src="./img/exit.svg">
+			<div class="menu-content">
+				<p>
+					blah blah blah
+				</p>
+			</div>
+		</div>
+
+		<div id="settings-overlay" class="overlay overlay-scale">
+			<img class="exit-btn" src="./img/exit.svg">
+			<div class="menu-content">
+				<!-- <ul>
+					<li>undo</li>
+					<li>grid size</li>
+					<li>number of slates</li>
+					<li>number of crumbs</li>
+					<li>save</li>
+				</ul> -->
+				<table>
+					<tr>
+						<td class="categ">undo</td>
+						<td>
+							<div id="toggle-wrapper" val="OFF">
+								<div id="off">OFF</div>
+								<div id="on">ON</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="categ">grid-size</td>
+						<td class="config-box">
+							<input id="grid-size-config" class="config-input" type="number" name="grid-size" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="categ">slates</td>
+						<td class="config-box">
+							<input id="slates-config" class="config-input" type="number" name="slates" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="categ">crumbs</td>
+						<td class="config-box">
+							<input id="crumbs-config" class="config-input" type="number" name="crumbs" value="">
+						</td>
+					</tr>
+				</table>
+
+				<div id="save-wrapper">
+					<div id="save-config">save</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="win-overlay" class="overlay overlay-scale">
+		<img class="exit-btn" src="./img/exit.svg">
+		<div class="menu-content">
+			<p>
+				You Won! :)
+			</p>
+		</div>
+	</div>
+
+	<div id="lose-overlay" class="overlay overlay-scale">
+		<img class="exit-btn" src="./img/exit.svg">
+		<div class="menu-content">
+			<p>
+				You Lost! :(
+			</p>
+		</div>
+	</div>
+
+
+	<link rel="stylesheet" type="text/css" href="css/menu.css">	
+	<script type="text/javascript" src="js/menu.js"></script>
+</body>
+</html>

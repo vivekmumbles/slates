@@ -1,0 +1,129 @@
+/* Overlay style */
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(252,252,252,.8);
+	z-index: 3;
+}
+
+/* Overlay closing cross */
+.exit-btn {
+	position: absolute;
+	right: 5%;
+	top: 8%;
+	opacity: .5;
+	cursor: pointer;
+}
+
+.exit-btn:hover {
+	opacity: .7;
+}
+/* Menu style */
+.menu-content {
+	text-align: center;
+	height: 60%;
+	transform: translateY(50%);
+	font-size: 32px;
+	font-weight: 900;
+	color: rgba(125, 125, 125, 1);
+}
+
+.menu-content ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	height: 100%;
+}
+
+.menu-content ul li {
+	height: 20%;
+	margin-bottom: -5%;
+	cursor: pointer;
+}
+
+.menu-content ul li:hover {
+	color: rgba(0, 0, 0, .7);
+}
+
+/* Effects */
+.overlay-scale {
+	visibility: hidden;
+	opacity: 0;
+	transform: scale(0.9);
+	transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
+}
+
+.overlay-scale.open {
+	visibility: visible;
+	opacity: 1;
+	transform: scale(1);	
+	transition: transform 0.4s, opacity 0.4s;
+}
+
+.overlay-slide {
+	visibility: hidden;
+	opacity: 0;
+	transform: translateX(100%);
+	transition: transform 0.2s, visibility 0s 0.2s;
+}
+
+.overlay-slide.open {
+	visibility: visible;
+	opacity: 1;
+	transform: translateX(0%);	
+	transition: transform 0.4s, opacity 0.4s;
+}
+
+
+#toggle-wrapper {
+	width: 100%;
+	height: 70%;
+	overflow: hidden;
+	cursor: pointer;
+	border-radius: 2px;
+	text-align: center;
+	font-size: 50%;
+	color: white;
+	margin-bottom: -60%;
+	display: inline-grid;
+}
+
+#off {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(125, 125, 125, 1);
+	transition: left .2s;
+	position: relative;
+}
+
+#on {
+	width: 100%;
+	height: 100%;
+	background-color: dodgerblue;
+	transition: left .2s;
+	position: relative;
+	left: 100%;
+	/*top: -162%;*/
+	transform: translateY(-100%);
+}
+
+#save-wrapper {
+	width: 50%;
+	margin: auto;
+}
+
+#save-config {
+  float: right;
+  background-color: orangered;
+  color: white;
+  font-size: 50%;
+  border-radius: 5%;
+  width: 30%;
+  margin-top: 15%;
+  line-height: 50%;
+  padding: 5%;
+  cursor: pointer;
+}
