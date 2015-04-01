@@ -5,6 +5,7 @@ var menuBtn         = document.getElementById("menu-btn");
 var	closeBtns       = document.getElementsByClassName("exit-btn");
 var instructionsBtn = document.getElementById("instructions-btn");
 var settingsBtn     = document.getElementById("settings-btn");
+var undoBtn         = document.getElementById("undo-btn");
 
 function closeMenus() {
 	var menus = document.getElementsByClassName("overlay");
@@ -50,10 +51,12 @@ document.getElementById("toggle-wrapper").onclick = function() {
     off.style.left = "-100%";
     on.style.left = "0%";
     this.setAttribute("val", "ON");
+    undoBtn.style.visibility = "visible";
   } else {
     off.style.left = "0%";
     on.style.left = "100%"
     this.setAttribute("val", "OFF");
+    undoBtn.style.visibility= "hidden";
   }
 };
 

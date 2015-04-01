@@ -13,3 +13,5 @@ TODO:
 - create list of moves, so that you can play fast
 - only render on moves to increase fps
 - change font to clear sans
+- add back button for menu
+- add menu instructions

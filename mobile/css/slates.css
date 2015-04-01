@@ -56,6 +56,15 @@ body {
 	cursor: pointer;
 }
 
+#undo-btn {
+	position: absolute;
+	background-color: rgb(255, 165, 0);
+	color: black;
+	z-index: 2;
+	cursor: pointer;
+	visibility: hidden;
+}
+
 table {
 	text-align: left;
 	margin: auto;

@@ -73,9 +73,9 @@ function Slates() {
 
     // good config : 4, 8, 3
 
-    var GRID_SIZE     = 4;
-    var NUM_OF_SLATES = 8;
-    var NUM_OF_CRUMBS = (function(x) { return Math.max(Math.min(x,NUM_OF_SLATES-1),1); })(3);
+    var GRID_SIZE;
+    var NUM_OF_SLATES;
+    var NUM_OF_CRUMBS;
 
     // aesthetics
 
@@ -131,6 +131,10 @@ function Slates() {
     var target     = null;
     var rot        = 0;
     var TARGET_ROT = 2*Math.PI; // radians
+
+    // undo
+    
+    var moves = [];
 
     //== init code ===============================================================================\\
 
@@ -492,7 +496,10 @@ return backTrack(newLeft).concat(backTrack(newRight));
 
     		toggleShadow(false);
 
-    		fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
+            fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
+
+            ctx.fillStyle = "rgba(255, 255, 255, .15)";
+            fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
     	}
     }
 
@@ -545,6 +552,10 @@ return backTrack(newLeft).concat(backTrack(newRight));
     	fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
     	fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
+        ctx.fillStyle = "rgba(255, 255, 255, .07)";
+        fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+        fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+
     	a.x = easeOutExpo(.1, a.x, deltaAX, 2);
     	a.y = easeOutExpo(.1, a.y, deltaAY, 2);
 
@@ -568,6 +579,9 @@ return backTrack(newLeft).concat(backTrack(newRight));
 
     		fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
     		fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+
+            ctx.fillStyle = "rgba(255, 255, 255, .15)";
+            fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
     		ctx.restore();
     	}
@@ -648,6 +662,8 @@ function mouseClickListener(e) {
 			grid[one[0]][one[1]]--;
 			grid[two[0]][two[1]]--;
 
+            moves.push({a: one, b: two, c: [x,y]});
+
 			var tmpx = (one[0]*DIV_SIZE)+LP_OFS;
 			var tmpy = (one[1]*DIV_SIZE)+LP_OFS;
 			aPos = {x:tmpx, y:tmpy};
@@ -666,6 +682,14 @@ function mouseClickListener(e) {
 		else wobble();
 	}
 	else console.log("something went wrong in click handler");
+}
+
+Slates.prototype.undoMove = function() {
+    var m = moves.pop();
+    if (m === undefined) return;
+    grid[m.c[0]][m.c[1]]--;
+    grid[m.a[0]][m.a[1]]++;
+    grid[m.b[0]][m.b[1]]++;
 }
 
     //== render loop =============================================================================\\
@@ -699,6 +723,7 @@ function mouseClickListener(e) {
         var logo    = document.getElementById("logo");
         var menuImg = document.getElementById("menu-img");
         var gameBtn = document.getElementById("new-game");
+        var undoBtn = document.getElementById("undo-btn");
 
         // var overlay = document.getElementById("overlay");
 
@@ -740,6 +765,11 @@ function mouseClickListener(e) {
         gameBtn.style.padding = fs/4 + "px";
         gameBtn.style.borderRadius = fs/6 + "px";
 
+        undoBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
+        undoBtn.style.fontSize = fs + "px";
+        undoBtn.style.padding = fs/4 + "px";
+        undoBtn.style.borderRadius = fs/6 + "px";
+        undoBtn.style.marginLeft = (size*.91)-undoBtn.clientWidth + "px";
 
         setClassStyle("overlay", "width", size+"px");
         setClassStyle("overlay", "margin-left", (ww-size)/2+"px");
@@ -836,6 +866,7 @@ function bindMenu(slates) {
     var hard    = document.getElementById("hard");
     var expert  = document.getElementById("expert");
     var save    = document.getElementById("save-config");
+    var undoBtn = document.getElementById("undo-btn");
 
     gameBtn.onclick = function() {
         slates.init(config);
@@ -898,6 +929,8 @@ function bindMenu(slates) {
         };
         slates.init(config);
     }
+
+    undoBtn.onclick = slates.undoMove;
 }
 
 window.onload = function() {
