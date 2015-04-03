@@ -80,7 +80,7 @@ function Slates() {
     // aesthetics
 
     // colors
-    var BG_COLOR          = "rgba(252, 252, 252, 1)"; //"rgba(230, 230, 230, 1)"; // light gray
+    var BG_COLOR          = "rgba(252, 252, 252, 1)"; // light gray
     var SQR_COLOR         = "rgba(200, 200, 200, 1)"; // dark gray
     var SLATE_COLOR       = "rgba(35,  114, 170, 1)"; // blue
     var CRUMB_COLOR       = "rgba(178,  34,  34, 1)"; // firebrick
@@ -412,16 +412,16 @@ return backTrack(newLeft).concat(backTrack(newRight));
 
     function renderNumbers() {
     	ctx.fillStyle = FONT_COLOR;
-    	var digits = 1;
+    	var md = 1;
     	iterGrid(function(i,j) {
     		var n = grid[i][j];
     		var d = Math.ceil(Math.log10(n));
-    		if (d > digits) digits = d;
+    		if (d > md) md = d;
     	});
     	iterGrid(function(i,j) {
     		var n = grid[i][j];
     		if(n > 1) {
-    			ctx.font = (FONT_SIZE/digits) + "px monospace";
+    			ctx.font = (FONT_SIZE/md) + "px droid-sans-mono";
     			var x = (i*DIV_SIZE)+FONT_OFFSET;
     			var y = (j*DIV_SIZE)+FONT_OFFSET;
     			ctx.fillText(n.toString(), x, y);
@@ -500,17 +500,17 @@ return backTrack(newLeft).concat(backTrack(newRight));
 
             ctx.fillStyle = "rgba(255, 255, 255, .15)";
             fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
-    	}
+        }
     }
 
     //== animation ===============================================================================\\
 
     function wobble() {
     	var start = new Date().getTime();
-    	var el = document.getElementById("canvas-wrapper");
+    	var el = document.getElementById("canvas");
     	el.classList.add("wobble");
     	setTimeout(function(el) { 
-    		document.getElementById("canvas-wrapper").classList.remove("wobble"); 
+    		document.getElementById("canvas").classList.remove("wobble"); 
     	}, 200);
     };
 
@@ -556,13 +556,13 @@ return backTrack(newLeft).concat(backTrack(newRight));
         fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
         fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-    	a.x = easeOutExpo(.1, a.x, deltaAX, 2);
-    	a.y = easeOutExpo(.1, a.y, deltaAY, 2);
+        a.x = easeOutExpo(.1, a.x, deltaAX, 2);
+        a.y = easeOutExpo(.1, a.y, deltaAY, 2);
 
-    	b.x = easeOutExpo(.1, b.x, deltaBX, 2);
-    	b.y = easeOutExpo(.1, b.y, deltaBY, 2);
+        b.x = easeOutExpo(.1, b.x, deltaBX, 2);
+        b.y = easeOutExpo(.1, b.y, deltaBY, 2);
 
-    	rot = 0;
+        rot = 0;
     }
     else {
     	var deltaRot = TARGET_ROT-rot;
@@ -583,20 +583,20 @@ return backTrack(newLeft).concat(backTrack(newRight));
             ctx.fillStyle = "rgba(255, 255, 255, .15)";
             fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-    		ctx.restore();
-    	}
-    	else {
+            ctx.restore();
+        }
+        else {
 
-    		grid[target.loc[0]][target.loc[1]]++;
+          grid[target.loc[0]][target.loc[1]]++;
 
-    		crumbs.forEach(function(el) {
-    			if (el.loc.equals(target.loc)) {
-    				el.visited = true;
-    			}
-    		});
+          crumbs.forEach(function(el) {
+             if (el.loc.equals(target.loc)) {
+                el.visited = true;
+            }
+        });
 
-    		target = null;
-    		animate = false;
+          target = null;
+          animate = false;
 
     		if      (checkWinner()) openMenu("win-overlay"); // alert("You Won!");
     		else if (checkLoser())  openMenu("lose-overlay"); // alert("You Lost!");
@@ -664,32 +664,24 @@ function mouseClickListener(e) {
 
             moves.push({a: one, b: two, c: [x,y]});
 
-			var tmpx = (one[0]*DIV_SIZE)+LP_OFS;
-			var tmpy = (one[1]*DIV_SIZE)+LP_OFS;
-			aPos = {x:tmpx, y:tmpy};
+            var tmpx = (one[0]*DIV_SIZE)+LP_OFS;
+            var tmpy = (one[1]*DIV_SIZE)+LP_OFS;
+            aPos = {x:tmpx, y:tmpy};
 
-			tmpx = (two[0]*DIV_SIZE)+LP_OFS;
-			tmpy = (two[1]*DIV_SIZE)+LP_OFS;
-			bPos = {x:tmpx, y:tmpy};
+            tmpx = (two[0]*DIV_SIZE)+LP_OFS;
+            tmpy = (two[1]*DIV_SIZE)+LP_OFS;
+            bPos = {x:tmpx, y:tmpy};
 
-			tmpx = (x*DIV_SIZE)+LP_OFS;
-			tmpy = (y*DIV_SIZE)+LP_OFS;
-			target = {x:tmpx, y:tmpy, loc: [x,y]};
+            tmpx = (x*DIV_SIZE)+LP_OFS;
+            tmpy = (y*DIV_SIZE)+LP_OFS;
+            target = {x:tmpx, y:tmpy, loc: [x,y]};
 
-			animate = true;
-			selection = [];
-		}
-		else wobble();
-	}
-	else console.log("something went wrong in click handler");
-}
-
-Slates.prototype.undoMove = function() {
-    var m = moves.pop();
-    if (m === undefined) return;
-    grid[m.c[0]][m.c[1]]--;
-    grid[m.a[0]][m.a[1]]++;
-    grid[m.b[0]][m.b[1]]++;
+            animate = true;
+            selection = [];
+        }
+        else wobble();
+    }
+    else console.log("something went wrong in click handler");
 }
 
     //== render loop =============================================================================\\
@@ -703,23 +695,28 @@ Slates.prototype.undoMove = function() {
     	renderNumbers();
     	renderSelection();
     	animateSlates();
-    	renderHover();
+    	// renderHover();
 
     	window.requestAnimationFrame(render);
     };
 
     //== publicly visible ========================================================================\\
-
+    
+    Slates.prototype.undoMove = function() {
+        var m = moves.pop();
+        if (m === undefined) return;
+        grid[m.c[0]][m.c[1]]--;
+        grid[m.a[0]][m.a[1]]++;
+        grid[m.b[0]][m.b[1]]++;
+    } 
+    
     Slates.prototype.resize = function() {
     	
     	var ww = window.innerWidth;
     	var wh = window.innerHeight;
 
-        // TODO maybe abstract setting styles
-
         var content = document.getElementById("content");
         var header  = document.getElementById("header");
-        // var title   = document.getElementById("title");
         var logo    = document.getElementById("logo");
         var menuImg = document.getElementById("menu-img");
         var gameBtn = document.getElementById("new-game");
@@ -727,11 +724,6 @@ Slates.prototype.undoMove = function() {
         var saveBtn = document.getElementById("save-btn");
         var tw      = document.getElementById("toggle-wrapper");
 
-        saveBtn.style.borderRadius = saveBtn.clientWidth*.015 + "px";
-
-        // var overlay = document.getElementById("overlay");
-
-        // var size = (wh < ww) ? Math.round(wh*.8) : ww;
         var size = Math.min(ww,wh)*.8;
 
         var headerHeight = Math.round(wh-size)*.9;
@@ -749,38 +741,31 @@ Slates.prototype.undoMove = function() {
         content.style.width  = size + "px";
         content.style.height = wh   + "px";
 
-        // canvas.parentElement.style.height = size + "px";
-        // canvas.parentElement.style.width  = size + "px";
-
         header.style.height = headerHeight + "px";
 
-        // title.style.fontSize = size/7 + "px";
-
         logo.style.width  = size/2.25 + "px";
-        // logo.style.height = size/14 + "px";
 
         menuImg.style.width = size/14 + "px";
 
         var fs = size/30;
 
-        tw.style.height = fs*1.5 + "px";
-
-        // gameBtn.style.marginLeft = size*.05 + "px";
-        // gameBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
-        gameBtn.style.fontSize = fs + "px";
-        gameBtn.style.padding = fs/4 + "px";
+        gameBtn.style.fontSize     = fs   + "px";
+        gameBtn.style.padding      = fs/4 + "px";
         gameBtn.style.borderRadius = fs/6 + "px";
 
-        // undoBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
-        undoBtn.style.fontSize = fs + "px";
-        undoBtn.style.padding = fs/4 + "px";
+        undoBtn.style.fontSize     = fs   + "px";
+        undoBtn.style.padding      = fs/4 + "px";
         undoBtn.style.borderRadius = fs/6 + "px";
-        // undoBtn.style.marginLeft = (size*.91)-undoBtn.clientWidth + "px";
+
+        saveBtn.style.borderRadius = saveBtn.clientWidth*.015 + "px";
+
+        tw.style.height = fs*1.5 + "px";
 
         setClassStyle("overlay", "width", size+"px");
         setClassStyle("overlay", "margin-left", (ww-size)/2+"px");
 
         setClassStyle("exit-btn", "width", size/14+"px");
+        // setClassStyle("back-btn", "width", size/14+"px");
 
         setClassStyle("menu-content", "font-size", size/14+"px");
 
@@ -855,8 +840,8 @@ Slates.prototype.undoMove = function() {
     };	
 
     Slates.prototype.main = function() {
-     render();
- }
+       render();
+   }
 }
 
 //== onload ======================================================================================\\
