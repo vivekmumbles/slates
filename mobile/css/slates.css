@@ -1,9 +1,12 @@
 
 @font-face {
-	/*font-family: "Clear Sans Bold";*/
-	/*src: url(../fnt/clear-sans/ClearSans-Bold.ttf) format("truetype");*/
 	font-family: "myriad-pro";
 	src: url(../fnt/myriad-pro/MYRIADPRO-REGULAR.OTF) format("opentype");
+}
+
+@font-face {
+	font-family: "droid-sans-mono";
+	src: url(../fnt/droid-sans-mono/DroidSansMono.ttf) format("truetype");
 }
 
 body {
@@ -11,7 +14,6 @@ body {
 	padding: 0px;
 	background-color: rgba(252, 252, 252, 1);
 	overflow: hidden;
-	/*font-family: "Clear Sans Bold";*/
 	font-family: "myriad-pro";
 }
 
@@ -34,76 +36,63 @@ body {
 	width: 42%;
 }
 
+#top-row {
+	height: 100%;
+	margin-top: 2%;
+}
+
 #logo {
-	display: inline-block;
-	margin-top: 5%;
-	margin-left: 4%;
 	z-index: 2;
+	position: relative;
+	float: left;
+	margin-left: 5%;
 }
 
 #menu-btn {
+	position: relative;
+	z-index: 2;
 	float: right;
-	margin-top: 10%;
 	margin-right: 5%;
+
+	height: 100%;
+}
+
+#menu-img {
+	margin-top: 80%;
 	cursor: pointer;
 }
 
 #new-game {
-	position: absolute;
+	position: relative;
 	background-color: rgb(255, 165, 0);
 	color: black;
 	z-index: 2;
 	cursor: pointer;
+	border: none;
+	outline: none;
+
+	float: left;
+	margin-left: 5%;
 }
 
 #undo-btn {
-	position: absolute;
+	position: relative;
 	background-color: rgb(255, 165, 0);
 	color: black;
 	z-index: 2;
 	cursor: pointer;
 	visibility: hidden;
-}
+	border: none;
+	outline: none;
 
-table {
-	text-align: left;
-	margin: auto;
-	width: 50%
-}
+	float: right;
+	margin-right: 6%;
 
-.categ {
-	width: 65%;
-	/*height: 64px;*/
-	/*vertical-align: bottom;*/
-}
-
-.config-box {
-	width: 20%
-}
-
-.config-input {
-	/*width: 60%;*/
-	width: 100%;
-	border: 1px;
-	background-color: rgba(252,252,252,.8);
-	border-style: double;
-	border-color: rgb(125, 125, 125);;
-	text-align: center;
-	vertical-align: middle;
-
-	font-size: 50%;
-	height: 50%;
-	border-radius: 1px;
-	font-family: monospace;
-}
-
-#canvas-wrapper {
-	padding: 0px;
-	margin: auto;
 }
 
 #canvas {
 	padding: 0px;
+	margin: auto;
 }
 
 

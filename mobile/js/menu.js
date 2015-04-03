@@ -1,11 +1,13 @@
 
 var currentMenu = null;
 
-var menuBtn         = document.getElementById("menu-btn");
+var menuBtn         = document.getElementById("menu-img");
 var	closeBtns       = document.getElementsByClassName("exit-btn");
 var instructionsBtn = document.getElementById("instructions-btn");
 var settingsBtn     = document.getElementById("settings-btn");
 var undoBtn         = document.getElementById("undo-btn");
+var toggle          = document.getElementById("toggle");
+
 
 function closeMenus() {
 	var menus = document.getElementsByClassName("overlay");
@@ -14,6 +16,7 @@ function closeMenus() {
 		menus[i].classList.add("close");
 		menuBtn.style.visibility = "visible";
 	}
+	currentMenu = null;
 }
 
 function openMenu(id) {
@@ -45,23 +48,12 @@ for(var i = 0; i < closeBtns.length; ++i) {
 }
 
 document.getElementById("toggle-wrapper").onclick = function() {
-  var off = document.getElementById("off");
-  var on = document.getElementById("on");
-	if (this.getAttribute("val") === "OFF") {
-    off.style.left = "-100%";
-    on.style.left = "0%";
-    this.setAttribute("val", "ON");
-    undoBtn.style.visibility = "visible";
-  } else {
-    off.style.left = "0%";
-    on.style.left = "100%"
-    this.setAttribute("val", "OFF");
-    undoBtn.style.visibility= "hidden";
-  }
+ 	if (toggle.checked) undoBtn.style.visibility = "visible";
+ 	else undoBtn.style.visibility = "hidden";
 };
 
 function setConfig() {
 	document.getElementById("grid-size-config").value = config.GRID_SIZE;
-    document.getElementById("slates-config").value = config.SLATES;
-    document.getElementById("crumbs-config").value = config.CRUMBS;
+    document.getElementById("slates-config").value    = config.SLATES;
+    document.getElementById("crumbs-config").value    = config.CRUMBS;
 }
