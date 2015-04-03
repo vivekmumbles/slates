@@ -15,3 +15,4 @@ TODO:
 - change font to clear sans
 - add back button for menu
 - add menu instructions
+- change button divs to button tags

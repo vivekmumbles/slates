@@ -34,35 +34,65 @@ body {
 	width: 42%;
 }
 
+#row1 {
+	height: 100%;
+	margin-top: 2%;
+}
+
 #logo {
-	display: inline-block;
-	margin-top: 5%;
-	margin-left: 4%;
+	/*display: inline-block;*/
+	/*margin-top: 5%;*/
+	/*margin-left: 4%;*/
 	z-index: 2;
+	position: relative;
+	float: left;
+	margin-left: 5%;
 }
 
 #menu-btn {
+	position: relative;
+	z-index: 2;
 	float: right;
-	margin-top: 10%;
+	/*margin-top: 10%;*/
 	margin-right: 5%;
+
+	height: 100%;
+}
+
+#menu-img {
+	margin-top: 80%;
 	cursor: pointer;
 }
 
 #new-game {
-	position: absolute;
+	/*position: absolute;*/
+	position: relative;
 	background-color: rgb(255, 165, 0);
 	color: black;
 	z-index: 2;
 	cursor: pointer;
+	border: none;
+	/*background: none;*/
+	outline: none;
+
+	float: left;
+	margin-left: 5%;
 }
 
 #undo-btn {
-	position: absolute;
+	/*position: absolute;*/
+	position: relative;
 	background-color: rgb(255, 165, 0);
 	color: black;
 	z-index: 2;
 	cursor: pointer;
 	visibility: hidden;
+	border: none;
+	outline: none;
+
+	float: right;
+	margin-right: 6%;
+
 }
 
 table {
@@ -91,19 +121,20 @@ table {
 	text-align: center;
 	vertical-align: middle;
 
-	font-size: 50%;
+	font-size: 40%;
 	height: 50%;
 	border-radius: 1px;
 	font-family: monospace;
 }
 
-#canvas-wrapper {
+/*#canvas-wrapper {
 	padding: 0px;
 	margin: auto;
-}
+}*/
 
 #canvas {
 	padding: 0px;
+	margin: auto;
 }
 
 

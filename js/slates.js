@@ -145,8 +145,8 @@ function Slates() {
     	ctx.shadowOffsetY = 0;
     	ctx.shadowOffsetX = 0;
 
-    	canvas.style.marginTop  = -LINE_WIDTH + "px";
-    	canvas.style.marginLeft = -LINE_WIDTH + "px";
+    	canvas.style.marginTop  = -(LINE_WIDTH+width/30) + "px";
+    	canvas.style.marginLeft = -LINE_WIDTH      + "px";
 
     	var content = document.getElementById("content");
     	content.style.width = width-LINE_WIDTH + "px";
@@ -724,13 +724,17 @@ Slates.prototype.undoMove = function() {
         var menuImg = document.getElementById("menu-img");
         var gameBtn = document.getElementById("new-game");
         var undoBtn = document.getElementById("undo-btn");
+        var saveBtn = document.getElementById("save-btn");
+        var tw      = document.getElementById("toggle-wrapper");
+
+        saveBtn.style.borderRadius = saveBtn.clientWidth*.015 + "px";
 
         // var overlay = document.getElementById("overlay");
 
         // var size = (wh < ww) ? Math.round(wh*.8) : ww;
         var size = Math.min(ww,wh)*.8;
 
-        var headerHeight = Math.round(wh-size);
+        var headerHeight = Math.round(wh-size)*.9;
 
         if (headerHeight/window.innerHeight > .3) {
             size = Math.min(ww,wh)*.9;
@@ -745,8 +749,8 @@ Slates.prototype.undoMove = function() {
         content.style.width  = size + "px";
         content.style.height = wh   + "px";
 
-        canvas.parentElement.style.height = size + "px";
-        canvas.parentElement.style.width  = size + "px";
+        // canvas.parentElement.style.height = size + "px";
+        // canvas.parentElement.style.width  = size + "px";
 
         header.style.height = headerHeight + "px";
 
@@ -759,17 +763,19 @@ Slates.prototype.undoMove = function() {
 
         var fs = size/30;
 
-        gameBtn.style.marginLeft = size*.05 + "px";
-        gameBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
+        tw.style.height = fs*1.5 + "px";
+
+        // gameBtn.style.marginLeft = size*.05 + "px";
+        // gameBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
         gameBtn.style.fontSize = fs + "px";
         gameBtn.style.padding = fs/4 + "px";
         gameBtn.style.borderRadius = fs/6 + "px";
 
-        undoBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
+        // undoBtn.style.marginTop  = headerHeight-((size/5.5)+(fs*1.25)) + "px";
         undoBtn.style.fontSize = fs + "px";
         undoBtn.style.padding = fs/4 + "px";
         undoBtn.style.borderRadius = fs/6 + "px";
-        undoBtn.style.marginLeft = (size*.91)-undoBtn.clientWidth + "px";
+        // undoBtn.style.marginLeft = (size*.91)-undoBtn.clientWidth + "px";
 
         setClassStyle("overlay", "width", size+"px");
         setClassStyle("overlay", "margin-left", (ww-size)/2+"px");
@@ -814,6 +820,8 @@ Slates.prototype.undoMove = function() {
 
     	canvas = document.getElementById("canvas");
     	ctx = canvas.getContext("2d");
+
+        moves = [];
 
         GRID_SIZE     = config.GRID_SIZE;
         NUM_OF_SLATES = config.SLATES;
@@ -865,7 +873,7 @@ function bindMenu(slates) {
     var medium  = document.getElementById("medium");
     var hard    = document.getElementById("hard");
     var expert  = document.getElementById("expert");
-    var save    = document.getElementById("save-config");
+    var saveBtn = document.getElementById("save-btn");
     var undoBtn = document.getElementById("undo-btn");
 
     gameBtn.onclick = function() {
@@ -912,7 +920,7 @@ function bindMenu(slates) {
         slates.init(config);
     }
 
-    save.onclick = function() {
+    saveBtn.onclick = function() {
         var gridSizeConfig = document.getElementById("grid-size-config").value;
         var slatesConfig   = document.getElementById("slates-config").value;
         var crumbsConfig   = document.getElementById("crumbs-config").value;
