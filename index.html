@@ -66,62 +66,63 @@
 		<!-- <img class="back-btn" src="./img/back.svg"> -->
 		<img class="exit-btn" src="./img/exit.svg">
 		<div class="menu-content">
-			<tr>
-				<td class="categ">undo</td>
-				<td class="config-box">
-					<div id="toggle-wrapper">
-						<input class="tgl tgl-ios" id="toggle" type="checkbox">
-						<label class="tgl-btn" for="toggle"></label>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="categ">grid-size</td>
-				<td class="config-box">
-					<input id="grid-size-config" class="config-input" type="number" name="grid-size" value="">
-				</td>
-			</tr>
-			<tr>
-				<td class="categ">slates</td>
-				<td class="config-box">
-					<input id="slates-config" class="config-input" type="number" name="slates" value="">
-				</td>
-			</tr>
-			<tr>
-				<td class="categ">crumbs</td>
-				<td class="config-box">
-					<input id="crumbs-config" class="config-input" type="number" name="crumbs" value="">
-				</td>
-			</tr>
-		</table>
+			<table>
+				<tr>
+					<td class="categ">undo</td>
+					<td class="config-box">
+						<div id="toggle-wrapper">
+							<input class="tgl tgl-ios" id="toggle" type="checkbox">
+							<label class="tgl-btn" for="toggle"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="categ">grid-size</td>
+					<td class="config-box">
+						<input id="grid-size-config" class="config-input" type="number" name="grid-size" value="">
+					</td>
+				</tr>
+				<tr>
+					<td class="categ">slates</td>
+					<td class="config-box">
+						<input id="slates-config" class="config-input" type="number" name="slates" value="">
+					</td>
+				</tr>
+				<tr>
+					<td class="categ">crumbs</td>
+					<td class="config-box">
+						<input id="crumbs-config" class="config-input" type="number" name="crumbs" value="">
+					</td>
+				</tr>
+			</table>
 
-		<div id="save-wrapper">
-			<button id="save-btn">save</button>
+			<div id="save-wrapper">
+				<button id="save-btn">save</button>
+			</div>
 		</div>
 	</div>
-</div>
 
-<div id="win-overlay" class="overlay overlay-scale">
-	<img class="exit-btn" src="./img/exit.svg">
-	<div class="menu-content">
-		<p>
-			You Won! :)
-		</p>
+	<div id="win-overlay" class="overlay overlay-scale">
+		<img class="exit-btn" src="./img/exit.svg">
+		<div class="menu-content">
+			<p>
+				You Won! :)
+			</p>
+		</div>
 	</div>
-</div>
 
-<div id="lose-overlay" class="overlay overlay-scale">
-	<img class="exit-btn" src="./img/exit.svg">
-	<div class="menu-content">
-		<p>
-			You Lost! :(
-		</p>
+	<div id="lose-overlay" class="overlay overlay-scale">
+		<img class="exit-btn" src="./img/exit.svg">
+		<div class="menu-content">
+			<p>
+				You Lost! :(
+			</p>
+		</div>
 	</div>
-</div>
 
-<link rel="stylesheet" type="text/css" href="css/menu.css">
-<link rel="stylesheet" type="text/css" href="css/toggle.css">
-<script type="text/javascript" src="js/menu.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/menu.css">
+	<link rel="stylesheet" type="text/css" href="css/toggle.css">
+	<script type="text/javascript" src="js/menu.js"></script>
 
 </body>
 </html>
