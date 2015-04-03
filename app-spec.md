@@ -1,7 +1,7 @@
 
 # Slates
 
-# [Demo](http://vivekmumbles.github.io/slates/v2/slates)
+# [Demo](http://vivekmumbles.github.io/slates)
 
 # Description
 
