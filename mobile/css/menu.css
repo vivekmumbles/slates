@@ -21,6 +21,7 @@
 	opacity: .7;
 }
 */
+
 .exit-btn {
 	position: absolute;
 	right: 7%;
@@ -60,7 +61,7 @@
 	color: rgba(0, 0, 0, .7);
 }
 
-p {
+#instructions-text {
 	width: 80%;
 	margin: auto;
 	text-align: left;
