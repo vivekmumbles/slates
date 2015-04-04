@@ -6,9 +6,9 @@
                        \/\_____\ \_____\ \_\ \_\ \ \_\ \ \_____\/\_____\ 
                         \/_____/\/_____/\/_/\/_/  \/_/  \/_____/\/_____/ 
                                                                          
-                        \*================================================================================================*/
+\*================================================================================================*/
 
-                        "use strict";
+"use strict";
 
 //== utility functions ===========================================================================\\
 
@@ -590,10 +590,10 @@ return backTrack(newLeft).concat(backTrack(newRight));
           grid[target.loc[0]][target.loc[1]]++;
 
           crumbs.forEach(function(el) {
-           if (el.loc.equals(target.loc)) {
-            el.visited = true;
-        }
-    });
+             if (el.loc.equals(target.loc)) {
+                el.visited = true;
+            }
+        });
 
           target = null;
           animate = false;
@@ -840,8 +840,8 @@ function mouseClickListener(e) {
     };	
 
     Slates.prototype.main = function() {
-     render();
- }
+       render();
+   }
 }
 
 //== onload ======================================================================================\\
@@ -932,21 +932,5 @@ window.onload = function() {
     slates.init(config);
     bindMenu(slates);
     window.onresize = slates.resize.bind(slates);
-
-    // window.requestAnimationFrame(slates.main.bind(slates));
-
-    window.requestAnimFrame = (function() {
-        return  window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame   ||
-        window.mozRequestAnimationFrame      ||
-        function( callback ){
-            window.setTimeout(callback, 1000 / 60);
-        };
-    })();
-
-    (function animLoop() {
-        requestAnimFrame(animLoop);
-        slates.main();
-    })();
-    
+    window.requestAnimationFrame(slates.main.bind(slates));
 };
