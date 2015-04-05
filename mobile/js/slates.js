@@ -861,15 +861,10 @@ function bindMenu(slates) {
     var saveBtn = document.getElementById("save-btn");
     var undoBtn = document.getElementById("undo-btn");
 
-    // gameBtn.onclick = function() {
-    //     slates.init(config);
-    // }
-    
-    // gameBtn.addEventListener("touchstart", handleStart, false);
-    gameBtn.addEventListener("touchend", function() {
+    gameBtn.onclick = function() {
         slates.init(config);
-    }, false);
-
+    }
+    
     easy.onclick = function() {
         config = {
             GRID_SIZE: 3,
