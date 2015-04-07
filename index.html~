@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
 	<title>Slates</title>
-	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/slates.css">
 	<script type="text/javascript" src="js/slates.js"></script>
 </head>
