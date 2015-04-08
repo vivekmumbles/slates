@@ -931,6 +931,6 @@ window.onload = function() {
     setConfig();
     slates.init(config);
     bindMenu(slates);
-    window.onresize = slates.resize.bind(slates);
+    window.onresize = slates.resize;
     window.requestAnimationFrame(slates.main.bind(slates));
 };
