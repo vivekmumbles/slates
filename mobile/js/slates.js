@@ -705,6 +705,13 @@ function mouseClickListener(e) {
     Slates.prototype.undoMove = function() {
         var m = moves.pop();
         if (m === undefined) return;
+
+        for(var i = 0; i < crumbs.length; ++i) {
+            if (crumbs[i].loc[0] === m.c[0] && crumbs[i].loc[1] === m.c[1]) {
+                crumbs[i].visited = false;
+            }
+        }
+
         grid[m.c[0]][m.c[1]]--;
         grid[m.a[0]][m.a[1]]++;
         grid[m.b[0]][m.b[1]]++;
