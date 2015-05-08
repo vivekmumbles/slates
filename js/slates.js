@@ -14,38 +14,38 @@
 
 // [min,max)
 function randint(min, max) {
-	return Math.floor(Math.random() * (max - min)) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function distance(a, b) {
-	return Math.sqrt(Math.pow(b[0]-a[0],2)+Math.pow(b[1]-a[1],2));
+    return Math.sqrt(Math.pow(b[0]-a[0],2)+Math.pow(b[1]-a[1],2));
 }
 
 // order matters
 Object.prototype.equals = function(x) {
-	return (JSON.stringify(this) === JSON.stringify(x));
+    return (JSON.stringify(this) === JSON.stringify(x));
 }
 
 Array.prototype.equals = function(array) {
 
-	if (!array) return false;
+    if (!array) return false;
 
-	if (this.length != array.length) return false;
+    if (this.length != array.length) return false;
 
-	for (var i = 0; i < this.length; i++) {
-		if (this[i] instanceof Array && array[i] instanceof Array) {
-			if (!this[i].equals(array[i])) return false;
-		} else if (this[i] != array[i]) return false;
-	} return true;
+    for (var i = 0; i < this.length; i++) {
+	if (this[i] instanceof Array && array[i] instanceof Array) {
+	    if (!this[i].equals(array[i])) return false;
+	} else if (this[i] != array[i]) return false;
+    } return true;
 }
 
 Array.prototype.hasMember = function(x) {
-	if (this.length === 0) return false;
-	for(var i = 0; i < this.length; i++) {
-		if ((this[i] instanceof Array && x instanceof Array) || (this[i] instanceof Object && x instanceof Object)) {
-			if (this[i].equals(x)) return true;
-		} else if (this[i] === x) return true;
-	} return false;
+    if (this.length === 0) return false;
+    for(var i = 0; i < this.length; i++) {
+	if ((this[i] instanceof Array && x instanceof Array) || (this[i] instanceof Object && x instanceof Object)) {
+	    if (this[i].equals(x)) return true;
+	} else if (this[i] === x) return true;
+    } return false;
 }
 
 function setIdStyle(id, style, value) {
@@ -63,11 +63,11 @@ function setClassStyle(classname, style, value) {
 
 function Slates() {
 
-	var canvas;
-	var ctx;
+    var canvas;
+    var ctx;
 
-	var width;
-	var height;
+    var width;
+    var height;
 
     // config params
 
@@ -179,25 +179,25 @@ function Slates() {
     function initGrid() {
     	var g = []
     	for(var i = 0; i < GRID_SIZE; ++i) {
-    		g.push([]);
-    		for(var j = 0; j < GRID_SIZE; ++j) {
-    			g[i].push(0);
-    		}
+    	    g.push([]);
+    	    for(var j = 0; j < GRID_SIZE; ++j) {
+    		g[i].push(0);
+    	    }
     	} return g;
     }
 
     function initSlates() {
     	var s = [];
     	for(var i = 0; i < NUM_OF_SLATES; ++i) {
-    		s.push(finalState);
+    	    s.push(finalState);
     	} return s;
     }
 
     function updateGrid(slates) {
     	for(var i = 0; i < slates.length; i++) {
-    		var x = slates[i][0];
-    		var y = slates[i][1];
-    		grid[x][y]++;
+    	    var x = slates[i][0];
+    	    var y = slates[i][1];
+    	    grid[x][y]++;
     	}
     }
 
@@ -217,29 +217,29 @@ function Slates() {
 	else if (x == 0 &&           y != 0 && y != e) return [1,2,3];
 	else if (x != 0 && x != e && y != 0 && y != e) return [0,1,2,3,4,5];
 	else {
-		console.error("error determining possible states");
-		return new Error("No possible states!");
+	    console.error("error determining possible states");
+	    return new Error("No possible states!");
 	}
-}
+    }
 
-function modifyLocation(state, side) {
+    function modifyLocation(state, side) {
 	function check(a, b) {
-		return (state == a) && (side == b);
+	    return (state == a) && (side == b);
 	}
 	var L = "LEFT"; var R = "RIGHT";
 	function helper(loc) {
-		var x = loc[0]; var y = loc[1];
-		if      (check(0,L) || check(4,R) || check(5,L)) x--;
-		else if (check(0,R) || check(2,R) || check(3,L)) x++;
-		else if (check(1,L) || check(2,L) || check(5,R)) y--;
-		else if (check(1,R) || check(3,R) || check(4,L)) y++;
-		else {
-			console.error("error in modying location.");
-		}
-		return [x,y];
+	    var x = loc[0]; var y = loc[1];
+	    if      (check(0,L) || check(4,R) || check(5,L)) x--;
+	    else if (check(0,R) || check(2,R) || check(3,L)) x++;
+	    else if (check(1,L) || check(2,L) || check(5,R)) y--;
+	    else if (check(1,R) || check(3,R) || check(4,L)) y++;
+	    else {
+		console.error("error in modying location.");
+	    }
+	    return [x,y];
 	}
 	return helper;
-}
+    }
 
     // dispersion heuristic
     function dispersion(loc, states) {
@@ -248,39 +248,39 @@ function modifyLocation(state, side) {
 
 	// return move based on state
 	function move(x,y,state) {
-		switch (state) {
-			case 0: return [[x-1,y],[x+1,y]];
-			case 1: return [[x,y-1],[x,y+1]];
-			case 2: return [[x,y-1],[x+1,y]];
-			case 3: return [[x+1,y],[x,y+1]];
-			case 4: return [[x-1,y],[x,y+1]];
-			case 5: return [[x-1,y],[x,y-1]];
-			default:
-			console.error("No such possible state");
-			return new Error("No possible state!");
-		}
+	    switch (state) {
+	    case 0: return [[x-1,y],[x+1,y]];
+	    case 1: return [[x,y-1],[x,y+1]];
+	    case 2: return [[x,y-1],[x+1,y]];
+	    case 3: return [[x+1,y],[x,y+1]];
+	    case 4: return [[x-1,y],[x,y+1]];
+	    case 5: return [[x-1,y],[x,y-1]];
+	    default:
+		console.error("No such possible state");
+		return new Error("No possible state!");
+	    }
 	}
 	
 	// return states with min slates
 	function minStates(states) {
-		var minStates = [[-1,Number.MAX_VALUE]];
-		for(var i = 0; i < states.length; ++i) {
-			var m   = move(x,y,states[i]);
-			var num = grid[m[0][0]][m[0][1]]+grid[m[1][0]][m[1][0]];
-			if      (num == minStates[0][1]) minStates.push([states[i],num]);
-			else if (num <  minStates[0][1]) minStates = [[states[i],num]];
-		} return minStates.map(function(x){ return x[0];});
+	    var minStates = [[-1,Number.MAX_VALUE]];
+	    for(var i = 0; i < states.length; ++i) {
+		var m   = move(x,y,states[i]);
+		var num = grid[m[0][0]][m[0][1]]+grid[m[1][0]][m[1][0]];
+		if      (num == minStates[0][1]) minStates.push([states[i],num]);
+		else if (num <  minStates[0][1]) minStates = [[states[i],num]];
+	    } return minStates.map(function(x){ return x[0];});
 	}
 
 	// return states with max dst from final state
 	function maxDstStates(states) {
-		var maxDstStates = [[-1,Number.MIN_VALUE]];
-		for(var i = 0; i < states.length; ++i) {
-			var m   = move(x,y,states[i]);
-			var dst = (distance(m[0],finalState)+distance(m[1],finalState));
-			if      (dst == maxDstStates[0][1]) maxDstStates.push([states[i],dst]);
-			else if (dst >  maxDstStates[0][1]) maxDstStates = [[states[i],dst]];
-		} return maxDstStates.map(function(x){ return x[0];});
+	    var maxDstStates = [[-1,Number.MIN_VALUE]];
+	    for(var i = 0; i < states.length; ++i) {
+		var m   = move(x,y,states[i]);
+		var dst = (distance(m[0],finalState)+distance(m[1],finalState));
+		if      (dst == maxDstStates[0][1]) maxDstStates.push([states[i],dst]);
+		else if (dst >  maxDstStates[0][1]) maxDstStates = [[states[i],dst]];
+	    } return maxDstStates.map(function(x){ return x[0];});
 	}
 
 	return states[randint(0,states.length)];
@@ -294,9 +294,9 @@ function modifyLocation(state, side) {
 	// if (r < 1/2) return ms[randint(0,ms.length)];
 	// else         return md[randint(0,md.length)];
 
-}
+    }
 
-function backTrack(slates) {
+    function backTrack(slates) {
 	updateGrid(slates);
 	if(slates.length <= 1) return slates;
 
@@ -310,24 +310,24 @@ function backTrack(slates) {
 	// crumbs
 	var r = Math.random();
 	if (r < (NUM_OF_CRUMBS/(NUM_OF_SLATES-1)) && crumbs.length < NUM_OF_CRUMBS && 
-		slates.length < NUM_OF_SLATES && crumbs.hasMember({loc: slates[0], visited: false}) == false) {
-		crumbs.push({loc: slates[0], visited: false});
-}
+	    slates.length < NUM_OF_SLATES && crumbs.hasMember({loc: slates[0], visited: false}) == false) {
+	    crumbs.push({loc: slates[0], visited: false});
+	}
 
-var newLeft = left.map(modifyLocation(state, "LEFT"));
-var newRight = right.map(modifyLocation(state, "RIGHT"));
+	var newLeft = left.map(modifyLocation(state, "LEFT"));
+	var newRight = right.map(modifyLocation(state, "RIGHT"));
 
-return backTrack(newLeft).concat(backTrack(newRight));
-}
+	return backTrack(newLeft).concat(backTrack(newRight));
+    }
 
     //== slates util =============================================================================\\
 
     
     function iterGrid(lambda) {
     	for(var i = 0; i < GRID_SIZE; i++) {
-    		for(var j = 0; j < GRID_SIZE; j++) {
-    			lambda(i,j);
-    		}
+    	    for(var j = 0; j < GRID_SIZE; j++) {
+    		lambda(i,j);
+    	    }
     	}
     }
     
@@ -372,18 +372,18 @@ return backTrack(newLeft).concat(backTrack(newRight));
 
     	var c = 0; var v = 1;
     	for(var i = 0; i < crumbs.length; ++i) {
-    		var cl = crumbs[i].loc;
-    		c += grid[cl[0]][cl[1]];
-    		v &= crumbs[i].visited;
-    		if (c > 1 || v == 0) return false;
+    	    var cl = crumbs[i].loc;
+    	    c += grid[cl[0]][cl[1]];
+    	    v &= crumbs[i].visited;
+    	    if (c > 1 || v == 0) return false;
     	}
 
     	var num = 0;
     	for(var i = 0; i < GRID_SIZE; i++) {
-    		for(var j = 0; j < GRID_SIZE; j++) {
-    			num += grid[i][j];
-    			if (num > 1) return false;
-    		}
+    	    for(var j = 0; j < GRID_SIZE; j++) {
+    		num += grid[i][j];
+    		if (num > 1) return false;
+    	    }
     	}
 
     	return true;
@@ -392,7 +392,7 @@ return backTrack(newLeft).concat(backTrack(newRight));
     function checkLoser() {
     	var moves = 0;
     	iterGrid(function(i,j) {
-    		if (isValidMove(i,j)) moves++; 
+    	    if (isValidMove(i,j)) moves++; 
     	});
 
     	return (moves == 0);
@@ -402,11 +402,11 @@ return backTrack(newLeft).concat(backTrack(newRight));
 
     function renderSlates() {
     	iterGrid(function(i,j) {
-    		var x = (i*DIV_SIZE)+LP;
-    		var y = (j*DIV_SIZE)+LP;
-    		if (grid[i][j] != 0) ctx.fillStyle = SLATE_COLOR;
-    		else                 ctx.fillStyle = SQR_COLOR;
-    		fillRoundedRect(x, y, SQR_SIZE, SQR_SIZE, BORDER_RADIUS);
+    	    var x = (i*DIV_SIZE)+LP;
+    	    var y = (j*DIV_SIZE)+LP;
+    	    if (grid[i][j] != 0) ctx.fillStyle = SLATE_COLOR;
+    	    else                 ctx.fillStyle = SQR_COLOR;
+    	    fillRoundedRect(x, y, SQR_SIZE, SQR_SIZE, BORDER_RADIUS);
     	});
     }
 
@@ -414,18 +414,18 @@ return backTrack(newLeft).concat(backTrack(newRight));
     	ctx.fillStyle = FONT_COLOR;
     	var md = 1;
     	iterGrid(function(i,j) {
-    		var n = grid[i][j];
-    		var d = Math.ceil(Math.log10(n));
-    		if (d > md) md = d;
+    	    var n = grid[i][j];
+    	    var d = Math.ceil(Math.log10(n));
+    	    if (d > md) md = d;
     	});
     	iterGrid(function(i,j) {
-    		var n = grid[i][j];
-    		if(n > 1) {
-    			ctx.font = (FONT_SIZE/md) + "px droid-sans-mono";
-    			var x = (i*DIV_SIZE)+FONT_OFFSET;
-    			var y = (j*DIV_SIZE)+FONT_OFFSET;
-    			ctx.fillText(n.toString(), x, y);
-    		}
+    	    var n = grid[i][j];
+    	    if(n > 1) {
+    		ctx.font = (FONT_SIZE/md) + "px droid-sans-mono";
+    		var x = (i*DIV_SIZE)+FONT_OFFSET;
+    		var y = (j*DIV_SIZE)+FONT_OFFSET;
+    		ctx.fillText(n.toString(), x, y);
+    	    }
     	});
     }
 
@@ -438,8 +438,8 @@ return backTrack(newLeft).concat(backTrack(newRight));
     	ctx.fillStyle = HOVER_COLOR;
 
     	if (selection.hasMember(hover)) {
-    		ofs = SEL_OFS;
-    		br  = SEL_BR;
+    	    ofs = SEL_OFS;
+    	    br  = SEL_BR;
     	}
     	var buf = 1;
     	var x = (hover[0]*DIV_SIZE)+LP+ofs-buf;
@@ -454,47 +454,47 @@ return backTrack(newLeft).concat(backTrack(newRight));
 
     	for(var i = 0; i < crumbs.length; ++i) {
 
-    		var u = crumbs[i].loc[0];
-    		var v = crumbs[i].loc[1];
+    	    var u = crumbs[i].loc[0];
+    	    var v = crumbs[i].loc[1];
 
-    		var x = (u*DIV_SIZE)+LP;
-    		var y = (v*DIV_SIZE)+LP;
+    	    var x = (u*DIV_SIZE)+LP;
+    	    var y = (v*DIV_SIZE)+LP;
 
-    		var h = grid[u][v];
-    		ctx.fillStyle = (h > 0) ? SLATE_COLOR : SQR_COLOR;
-    		fillRoundedRect(x, y, SQR_SIZE, SQR_SIZE, BORDER_RADIUS);
+    	    var h = grid[u][v];
+    	    ctx.fillStyle = (h > 0) ? SLATE_COLOR : SQR_COLOR;
+    	    fillRoundedRect(x, y, SQR_SIZE, SQR_SIZE, BORDER_RADIUS);
 
-    		ctx.beginPath();
-    		ctx.arc((u*DIV_SIZE)+CTR_OFS, (v*DIV_SIZE)+CTR_OFS, CRUMB_SIZE, 0, 2*Math.PI, false);
-    		ctx.fillStyle = (crumbs[i].visited) ? VISITED_COLOR : CRUMB_COLOR;
-    		ctx.fill();
-    		ctx.closePath();
+    	    ctx.beginPath();
+    	    ctx.arc((u*DIV_SIZE)+CTR_OFS, (v*DIV_SIZE)+CTR_OFS, CRUMB_SIZE, 0, 2*Math.PI, false);
+    	    ctx.fillStyle = (crumbs[i].visited) ? VISITED_COLOR : CRUMB_COLOR;
+    	    ctx.fill();
+    	    ctx.closePath();
     	}
     }
 
     function renderSelection() {
 
     	for(var i = 0; i < selection.length; i++) {
-    		var sel = selection[i];
+    	    var sel = selection[i];
 
-    		ctx.fillStyle = (grid[sel[0]][sel[1]] > 1) ? SLATE_COLOR : SQR_COLOR;
+    	    ctx.fillStyle = (grid[sel[0]][sel[1]] > 1) ? SLATE_COLOR : SQR_COLOR;
 
-    		var buf = 1;
-    		var x = (sel[0]*DIV_SIZE)+LP;
-    		var y = (sel[1]*DIV_SIZE)+LP;
+    	    var buf = 1;
+    	    var x = (sel[0]*DIV_SIZE)+LP;
+    	    var y = (sel[1]*DIV_SIZE)+LP;
 
-    		fillRoundedRect(x-buf, y-buf, SQR_SIZE+buf*2, SQR_SIZE+buf*2, BORDER_RADIUS);
+    	    fillRoundedRect(x-buf, y-buf, SQR_SIZE+buf*2, SQR_SIZE+buf*2, BORDER_RADIUS);
 
-    		toggleShadow(true);
+    	    toggleShadow(true);
 
-    		x = x + SEL_OFS;
-    		y = y + SEL_OFS;
+    	    x = x + SEL_OFS;
+    	    y = y + SEL_OFS;
 
-    		ctx.fillStyle = SLATE_COLOR;
-    		fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
-    		fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
+    	    ctx.fillStyle = SLATE_COLOR;
+    	    fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
+    	    fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-    		toggleShadow(false);
+    	    toggleShadow(false);
 
             fillRoundedRect(x, y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
@@ -510,7 +510,7 @@ return backTrack(newLeft).concat(backTrack(newRight));
     	var el = document.getElementById("canvas");
     	el.classList.add("wobble");
     	setTimeout(function(el) { 
-    		document.getElementById("canvas").classList.remove("wobble"); 
+    	    document.getElementById("canvas").classList.remove("wobble"); 
     	}, 200);
     };
 
@@ -544,29 +544,29 @@ return backTrack(newLeft).concat(backTrack(newRight));
     	ctx.fillStyle = "rgba(35, 114, 170, 1)";
 
     	if ((Math.abs(deltaAX) > mTol || Math.abs(deltaAY) > mTol) &&
-    		(Math.abs(deltaBX) > mTol || Math.abs(deltaBY) > mTol)) {
+    	    (Math.abs(deltaBX) > mTol || Math.abs(deltaBY) > mTol)) {
 
-    		fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
-    	fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+    	    fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+    	    fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-    	fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
-    	fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+    	    fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+    	    fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-        ctx.fillStyle = "rgba(255, 255, 255, .07)";
-        fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
-        fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+            ctx.fillStyle = "rgba(255, 255, 255, .07)";
+            fillRoundedRect(a.x, a.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+            fillRoundedRect(b.x, b.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-        a.x = easeOutExpo(.1, a.x, deltaAX, 2);
-        a.y = easeOutExpo(.1, a.y, deltaAY, 2);
+            a.x = easeOutExpo(.1, a.x, deltaAX, 2);
+            a.y = easeOutExpo(.1, a.y, deltaAY, 2);
 
-        b.x = easeOutExpo(.1, b.x, deltaBX, 2);
-        b.y = easeOutExpo(.1, b.y, deltaBY, 2);
+            b.x = easeOutExpo(.1, b.x, deltaBX, 2);
+            b.y = easeOutExpo(.1, b.y, deltaBY, 2);
 
-        rot = 0;
-    }
-    else {
-    	var deltaRot = TARGET_ROT-rot;
-    	if (Math.abs(deltaRot) > rTol) {
+            rot = 0;
+	}
+	else {
+    	    var deltaRot = TARGET_ROT-rot;
+    	    if (Math.abs(deltaRot) > rTol) {
     		rot = easeOutCubic(1, rot, deltaRot, 20);
 
     		ctx.save();
@@ -580,109 +580,123 @@ return backTrack(newLeft).concat(backTrack(newRight));
     		fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
     		fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-            ctx.fillStyle = "rgba(255, 255, 255, .15)";
-            fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
+		ctx.fillStyle = "rgba(255, 255, 255, .15)";
+		fillRoundedRect(target.x, target.y, SEL_SIZE, SEL_SIZE, SEL_BR);
 
-            ctx.restore();
-        }
-        else {
-
-          grid[target.loc[0]][target.loc[1]]++;
-
-          crumbs.forEach(function(el) {
-             if (el.loc.equals(target.loc)) {
-                el.visited = true;
+		ctx.restore();
             }
-        });
+            else {
 
-          target = null;
-          animate = false;
+		grid[target.loc[0]][target.loc[1]]++;
 
+		crumbs.forEach(function(el) {
+		    if (el.loc.equals(target.loc)) {
+			el.visited = true;
+		    }
+		});
+
+		target = null;
+		animate = false;
+		
     		if      (checkWinner()) openMenu("win-overlay"); // alert("You Won!");
     		else if (checkLoser())  openMenu("lose-overlay"); // alert("You Lost!");
-    	}
+    	    }
+	}
+	
+	toggleShadow(false);
+	
+	aPos = a;
+	bPos = b;
+	
     }
-
-    toggleShadow(false);
-
-    aPos = a;
-    bPos = b;
-
-}
 
     //== mouse controls ==========================================================================\\
 
-    function mouseMotionListener(e) {
-    	var br = canvas.getBoundingClientRect();
+    function getLocation(e) {
+	var br = canvas.getBoundingClientRect();
     	var x = e.clientX - br.left - PAD;
     	var y = e.clientY - br.top  - PAD;
     	var xLoc = Math.floor(x / DIV_SIZE);
     	var yLoc = Math.floor(y / DIV_SIZE);
 
     	if (xLoc < 0 || yLoc < 0 || xLoc >= GRID_SIZE || yLoc >= GRID_SIZE) { 
-    		hover = [-1,-1];
-    		return;
+    	    return [-1,-1];
     	}
 
     	var u = e.clientX - br.left;
     	var v = e.clientY - br.top;
 
     	if ((xLoc*DIV_SIZE)+LP+BR_OFS <= u && u <= (xLoc*DIV_SIZE)+DIV_SIZE+PAD-BR_OFS &&
-    		(yLoc*DIV_SIZE)+LP+BR_OFS <= v && v <= (yLoc*DIV_SIZE)+DIV_SIZE+PAD-BR_OFS) {
-    		hover = [xLoc, yLoc];
-    } else { 
-    	hover = [-1,-1]; 
+    	    (yLoc*DIV_SIZE)+LP+BR_OFS <= v && v <= (yLoc*DIV_SIZE)+DIV_SIZE+PAD-BR_OFS) {
+    	    return [xLoc, yLoc];
+	} else { 
+    	    return [-1,-1]; 
+	}
     }
-}
 
-function mouseExitListener(e) {
+    function mouseMotionListener(e) {
+	hover = getLocation(e);
+    }
+
+    function mouseExitListener(e) {
 	hover = [-1,-1];
-}
+    }
 
-function mouseClickListener(e) {
-	if (hover[0] == -1 && hover[1] == -1) return;
-	
-	var x = hover[0]; var y = hover[1];
-	
+    function selector(e) {
+	var loc = getLocation(e);
+
+	if (loc[0] == -1 && loc[1] == -1) return;
+	var x = loc[0]; var y = loc[1];
+
 	if (selection.length == 0) {
-		if (grid[x][y] != 0) selection.push(hover);
-		else wobble();
+	    if (grid[x][y] != 0) selection.push(loc);
+	    else wobble();
 	}
 	else if (selection.length == 1) {
-		if      (selection[0].equals(hover)          && grid[x][y] != 0) selection.splice(0,1);
-		else if (validSelection(selection[0], hover) && grid[x][y] != 0) selection.push(hover);
-		else wobble();
+	    if      (selection[0].equals(loc)          && grid[x][y] != 0) selection.splice(0,1);
+	    else if (validSelection(selection[0], loc) && grid[x][y] != 0) selection.push(loc);
+	    else wobble();
 	}
 	else if (selection.length == 2) {
-		if      (selection[0].equals(hover)) selection.splice(0,1);
-		else if (selection[1].equals(hover)) selection.splice(1,1);
-		else if (distance(selection[0], hover) == 1 && distance(selection[1], hover) == 1) {
+	    if      (selection[0].equals(loc)) selection.splice(0,1);
+	    else if (selection[1].equals(loc)) selection.splice(1,1);
+	    else if (distance(selection[0], loc) == 1 && distance(selection[1], loc) == 1) {
 
-			var one = selection[0]; var two = selection[1];
-			grid[one[0]][one[1]]--;
-			grid[two[0]][two[1]]--;
+		var one = selection[0]; var two = selection[1];
+		grid[one[0]][one[1]]--;
+		grid[two[0]][two[1]]--;
 
-            moves.push({a: one, b: two, c: [x,y]});
+		moves.push({a: one, b: two, c: [x,y]});
 
-            var tmpx = (one[0]*DIV_SIZE)+LP_OFS;
-            var tmpy = (one[1]*DIV_SIZE)+LP_OFS;
-            aPos = {x:tmpx, y:tmpy};
+		var tmpx = (one[0]*DIV_SIZE)+LP_OFS;
+		var tmpy = (one[1]*DIV_SIZE)+LP_OFS;
+		aPos = {x:tmpx, y:tmpy};
 
-            tmpx = (two[0]*DIV_SIZE)+LP_OFS;
-            tmpy = (two[1]*DIV_SIZE)+LP_OFS;
-            bPos = {x:tmpx, y:tmpy};
+		tmpx = (two[0]*DIV_SIZE)+LP_OFS;
+		tmpy = (two[1]*DIV_SIZE)+LP_OFS;
+		bPos = {x:tmpx, y:tmpy};
 
-            tmpx = (x*DIV_SIZE)+LP_OFS;
-            tmpy = (y*DIV_SIZE)+LP_OFS;
-            target = {x:tmpx, y:tmpy, loc: [x,y]};
+		tmpx = (x*DIV_SIZE)+LP_OFS;
+		tmpy = (y*DIV_SIZE)+LP_OFS;
+		target = {x:tmpx, y:tmpy, loc: [x,y]};
 
-            animate = true;
-            selection = [];
-        }
-        else wobble();
+		animate = true;
+		selection = [];
+            }
+            else wobble();
+	}
+	else console.log("something went wrong in click handler");
     }
-    else console.log("something went wrong in click handler");
-}
+
+    function touchHandler(e) {
+	e.preventDefault();
+	// hover = [-1, -1];
+	selector(e.changedTouches[0]);
+    }
+
+    function mouseClickListener(e) {
+	selector(e);
+    }
 
     //== render loop =============================================================================\\
 
@@ -780,29 +794,29 @@ function mouseClickListener(e) {
         // finally query the various pixel ratios
         var devicePixelRatio  = window.devicePixelRatio || 1;
         var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
-        ctx.mozBackingStorePixelRatio ||
-        ctx.msBackingStorePixelRatio ||
-        ctx.oBackingStorePixelRatio ||
-        ctx.backingStorePixelRatio || 1;
+            ctx.mozBackingStorePixelRatio ||
+            ctx.msBackingStorePixelRatio ||
+            ctx.oBackingStorePixelRatio ||
+            ctx.backingStorePixelRatio || 1;
 
         var ratio = devicePixelRatio / backingStoreRatio;
 
     	// upscale the canvas if the two ratios don't match
     	if (devicePixelRatio !== backingStoreRatio) {
 
-    		var oldWidth = canvas.width;
-    		var oldHeight = canvas.height;
+    	    var oldWidth = canvas.width;
+    	    var oldHeight = canvas.height;
 
-    		canvas.width = oldWidth * ratio;
-    		canvas.height = oldHeight * ratio;
+    	    canvas.width = oldWidth * ratio;
+    	    canvas.height = oldHeight * ratio;
 
-    		canvas.style.width = oldWidth + 'px';
-    		canvas.style.height = oldHeight + 'px';
+    	    canvas.style.width = oldWidth + 'px';
+    	    canvas.style.height = oldHeight + 'px';
 
-        	// now scale the ctx to counter
-        	// the fact that we've manually scaled
-        	// our canvas element
-        	ctx.scale(ratio, ratio);
+            // now scale the ctx to counter
+            // the fact that we've manually scaled
+            // our canvas element
+            ctx.scale(ratio, ratio);
         }
 
         setDerivedProperties();
@@ -844,11 +858,13 @@ function mouseClickListener(e) {
         canvas.onmousemove  = mouseMotionListener;
         canvas.onmouseleave = mouseExitListener;
         canvas.onclick      = mouseClickListener;
+
+	canvas.addEventListener("touchstart", touchHandler, false);
     };	
 
     Slates.prototype.main = function() {
-       render();
-   }
+	render();
+    }
 }
 
 //== onload ======================================================================================\\
@@ -934,7 +950,7 @@ function bindMenu(slates) {
 }
 
 window.onload = function() {
-	var slates = new Slates();
+    var slates = new Slates();
     setConfig();
     slates.init(config);
     bindMenu(slates);
